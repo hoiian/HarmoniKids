@@ -1,0 +1,14 @@
+# 忽略 Python 虛擬環境
+myenv/
+
+# 忽略 Node.js 依賴
+game/node_modules/
+
+# Python & Flask 忽略項目
+*.pyc
+__pycache__/
+instance/
+.env
+
+# React Build 產生的檔案（如果不想上傳）
+game/build/
