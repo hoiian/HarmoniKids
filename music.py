@@ -206,7 +206,7 @@ def recognize_notes(img_path):
 def index():
     return render_template('index.html')
 
-@app.route('/capture', methods=['POST'])
+@app.route('/api/capture', methods=['POST'])
 def capture():
     global last_recognized_notes
     data = request.form.get('image')
