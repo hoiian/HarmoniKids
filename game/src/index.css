@@ -225,8 +225,8 @@ body {
 /* ------旋律-故事------- */
 
 .melody-story-container {
-  background-image: url("../public/images/melody/bg_story.png");
-  background-size: 100% auto;
+  /* background-image: url("../public/images/melody/bg_story.png");
+  background-size: 100% auto; */
 }
 
 .storyText {
@@ -244,7 +244,7 @@ body {
 
 .melody-tutorial-container {
   /* background-image: url("../public/images/melody/bg_tutorial.png"); */
-  background-size: 100% auto;
+  /* background-size: 100% auto; */
 }
 
 .video-container {
@@ -266,8 +266,8 @@ body {
 /* ------旋律-遊戲------- */
 
 .melody-game-container {
-  background-image: url("../public/images/melody/bg_game.png");
-  background-size: 100% auto;
+  /* background-image: url("../public/images/melody/bg_game.png");
+  background-size: 100% auto; */
 }
 
 .BackBtn_black {

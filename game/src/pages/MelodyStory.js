@@ -6,6 +6,12 @@ function MelodyStory() {
 
   return (
     <div className="melody-story-container container">
+      <div className="video-container">
+        <video autoPlay loop muted playsInline className="background-video">
+          <source src="/videos/melody_story_bg.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
       {/* 返回首頁 */}
       <div className="BackBtn" onClick={() => navigate("/")}></div>
       <div className="storyText">
