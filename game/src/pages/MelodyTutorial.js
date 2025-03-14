@@ -9,17 +9,13 @@ const MelodyTutorial = () => {
       video.muted = false; // 取消靜音
       video.volume = 1.0; // 設定音量
       video.play().catch((error) => console.log("自動播放被阻止", error));
-    }, 10);
+    }, 1000);
   });
 
   return (
     <div className="melody-tutorial-container container">
       {/* <h1>Melody Tutorial Page</h1> */}
-      <div
-        className="BackBtn BackBtn_black"
-        onClick={() => navigate("/")}
-      ></div>
-      <div className="storyText"> Play video </div>
+      <div className="BackBtn" onClick={() => navigate("/")}></div>
       <div className="video-container">
         <video autoPlay loop playsInline>
           <source src="/videos/melody_tutorial.mp4" type="video/mp4" />

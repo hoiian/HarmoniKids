@@ -38,6 +38,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: "GenSenRounded", sans-serif;
+  overflow: hidden;
 }
 
 .container {
@@ -240,6 +241,43 @@ body {
   position: absolute;
 }
 
+.toggle-text-btn {
+  width: 60px;
+  height: 60px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  bottom: 248px;
+  transform: translateY(-100%);
+  background: none;
+  background-image: url("../public/images/melody/btn_story.png");
+}
+
+.last-visit-badge {
+  position: absolute;
+  right: 214px;
+  bottom: 36px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.last-visit-badge .badge-icon {
+  width: 90px;
+  height: 90px;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  background-image: url("../public/images/melody/icon_badge.png");
+}
+
+.last-visit-badge .visit-time {
+  font-size: 20px;
+  color: #f0f0f0;
+}
 /* ------旋律-教學------- */
 
 .melody-tutorial-container {
