@@ -49,7 +49,7 @@ const MelodyGame = () => {
       </div>
 
       <button
-        className="arrow left"
+        className="arrow left left_black"
         onClick={() => navigate("/melody/tutorial")}
       ></button>
     </div>

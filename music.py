@@ -23,11 +23,11 @@ note_to_sound = {
     ('quarter_note', 'G3'): 'quarter_note_C3_Sol.wav',
     ('quarter_note', 'A3'): 'quarter_note_C3_La.wav',
     ('quarter_note', 'B3'): 'quarter_note_C3_Si.wav',
-    ('quarter_note', 'C4'): 'quarter_note_C4_Do.wav',
-    ('quarter_note', 'D4'): 'quarter_note_C4_Re.wav',
-    ('quarter_note', 'E4'): 'quarter_note_C4_Mi.wav',
-    ('quarter_note', 'F4'): 'quarter_note_C4_Fa.wav',
-    ('quarter_note', 'G4'): 'quarter_note_C4_Sol.wav',
+    ('quarter_note', 'C4'): '1_Do.wav',
+    ('quarter_note', 'D4'): '1_Re.wav',
+    ('quarter_note', 'E4'): '1_Mi.wav',
+    ('quarter_note', 'F4'): '1_Fa.wav',
+    ('quarter_note', 'G4'): '1_Sol.wav',
 
     ('half_note', 'C3'): 'half_note_C3_Do.wav',
     ('half_note', 'D3'): 'half_note_C3_Re.wav',
@@ -36,11 +36,11 @@ note_to_sound = {
     ('half_note', 'G3'): 'half_note_C3_Sol.wav',
     ('half_note', 'A3'): 'half_note_C3_La.wav',
     ('half_note', 'B3'): 'half_note_C3_Si.wav',
-    ('half_note', 'C4'): 'half_note_C4_Do.wav',
-    ('half_note', 'D4'): 'half_note_C4_Re.wav',
-    ('half_note', 'E4'): 'half_note_C4_Mi.wav',
-    ('half_note', 'F4'): 'half_note_C4_Fa.wav',
-    ('half_note', 'G4'): 'half_note_C4_Sol.wav',
+    ('half_note', 'C4'): '2_C4.wav',
+    ('half_note', 'D4'): '2_D4.wav',
+    ('half_note', 'E4'): '2_E4.wav',
+    ('half_note', 'F4'): '2_F4.wav',
+    ('half_note', 'G4'): '2_G4.wav',
 
     ('whole_note', 'C3'): 'whole_note_C3_Do.wav',
     ('whole_note', 'D3'): 'whole_note_C3_Re.wav',
@@ -49,11 +49,11 @@ note_to_sound = {
     ('whole_note', 'G3'): 'whole_note_C3_Sol.wav',
     ('whole_note', 'A3'): 'whole_note_C3_La.wav',
     ('whole_note', 'B3'): 'whole_note_C3_Si.wav',
-    ('whole_note', 'C4'): 'whole_note_C4_Do.wav',
-    ('whole_note', 'D4'): 'whole_note_C4_Re.wav',
-    ('whole_note', 'E4'): 'whole_note_C4_Mi.wav',
-    ('whole_note', 'F4'): 'whole_note_C4_Fa.wav',
-    ('whole_note', 'G4'): 'whole_note_C4_Sol.wav'
+    ('whole_note', 'C4'): '4_C4.wav',
+    ('whole_note', 'D4'): '4_D4.wav',
+    ('whole_note', 'E4'): '4_E4.wav',
+    ('whole_note', 'F4'): '4_F4.wav',
+    ('whole_note', 'G4'): '4_G4.wav'
     # 若有更多音符和音高組合，請在此加入對應檔名
 }
 
