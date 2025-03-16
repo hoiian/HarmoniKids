@@ -359,3 +359,100 @@ body {
 .BackBtn_black {
   background-image: url("../public/images/melody/btn_back_black.png");
 }
+
+.notes {
+  width: 982px;
+  height: 332px;
+  background-size: contain;
+  position: absolute;
+  top: 158px;
+  left: 93px;
+  background-image: url("../public/images/melody/position.png");
+}
+
+.notes .note {
+  background-size: contain;
+  position: absolute;
+  height: 107px;
+  width: 97px;
+}
+
+.note_2_G4 {
+  width: 162px !important;
+  background-image: url("../public/images/melody/note_2_G4.png");
+}
+
+.note_1_E4 {
+  background-image: url("../public/images/melody/note_1_E4.png");
+}
+
+.note_1_F4 {
+  background-image: url("../public/images/melody/note_1_F4.png");
+}
+
+.note_1_G4 {
+  background-image: url("../public/images/melody/note_1_G4.png");
+}
+
+.note_1_A4 {
+  background-image: url("../public/images/melody/note_1_A4.png");
+}
+
+.note_4_G4 {
+  width: 227px !important;
+  background-image: url("../public/images/melody/note_4_G4.png");
+}
+
+.notes .note:nth-child(1) {
+  top: 35px;
+  left: 30px;
+}
+
+.notes .note:nth-child(2) {
+  top: 6px;
+  left: 248px;
+}
+
+.notes .note:nth-child(3) {
+  top: 6px;
+  left: 377px;
+}
+
+.notes .note:nth-child(4) {
+  top: 29px;
+  left: 528px;
+}
+
+.notes .note:nth-child(5) {
+  top: 6px;
+  left: 747px;
+}
+.notes .note:nth-child(6) {
+  top: 6px;
+  left: 873px;
+}
+
+.notes .note:nth-child(7) {
+  top: 228px;
+  left: 6px;
+}
+
+.notes .note:nth-child(8) {
+  top: 210px;
+  left: 112px;
+}
+
+.notes .note:nth-child(9) {
+  top: 213px;
+  left: 218px;
+}
+
+.notes .note:nth-child(10) {
+  top: 225px;
+  left: 327px;
+}
+
+.notes .note:nth-child(11) {
+  top: 193px;
+  left: 493px;
+}

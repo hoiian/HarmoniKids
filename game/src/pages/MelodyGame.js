@@ -52,6 +52,23 @@ const MelodyGame = () => {
         className="arrow left left_black"
         onClick={() => navigate("/melody/tutorial")}
       ></button>
+
+      <div className="notes">
+        <div className="note note_2_G4"></div>
+        <div className="note note_1_E4"></div>
+        <div className="note note_1_F4"></div>
+
+        <div className="note note_2_G4"></div>
+        <div className="note note_1_E4"></div>
+        <div className="note note_1_F4"></div>
+
+        <div className="note note_1_G4"></div>
+        <div className="note note_1_G4"></div>
+        <div className="note note_1_A4"></div>
+        <div className="note note_1_A4"></div>
+
+        <div className="note note_4_G4"></div>
+      </div>
     </div>
   );
 };
