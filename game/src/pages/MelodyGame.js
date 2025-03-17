@@ -1,10 +1,64 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 const MelodyGame = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [audioIndex, setAudioIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [activeNoteIndex, setActiveNoteIndex] = useState(null);
+
+  // 音檔列表（按順序播放）
+  const audioFiles = [
+    "2_G4.wav",
+    "1_E4.wav",
+    "1_F4.wav",
+    "2_G4.wav",
+    "1_E4.wav",
+    "1_F4.wav",
+    "1_G4.wav",
+    "1_G4.wav",
+    "1_A4.wav",
+    "1_A4.wav",
+    "4_G4.wav",
+  ].map((file) => `http://127.0.0.1:5000/static/sounds/${file}`);
+
+  // 音符對應的 class
+  const noteClasses = [
+    "note_2_G4",
+    "note_1_E4",
+    "note_1_F4",
+    "note_2_G4",
+    "note_1_E4",
+    "note_1_F4",
+    "note_1_G4",
+    "note_1_G4",
+    "note_1_A4",
+    "note_1_A4",
+    "note_4_G4",
+  ];
+
+  // 播放音檔並更新當前播放的 note
+  const playNextAudio = () => {
+    if (audioIndex < audioFiles.length) {
+      setActiveNoteIndex(audioIndex); // 設定當前播放音符的 index
+      const audio = new Audio(audioFiles[audioIndex]);
+      audio.play();
+      audio.onended = () => {
+        setAudioIndex((prev) => prev + 1);
+        setActiveNoteIndex(null); // 恢復透明度
+      };
+    } else {
+      setIsPlaying(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isPlaying) {
+      playNextAudio();
+    }
+  }, [audioIndex, isPlaying]);
 
   return (
     <div className="melody-game-container container">
@@ -19,8 +73,13 @@ const MelodyGame = () => {
         onClick={() => navigate("/")}
       ></div>
 
+      {/* 測試用按鈕（跳轉到 MelodyGameResult） */}
+      <button className="test-btn" onClick={() => navigate("/melody/result")}>
+        到結果頁（測試用）
+      </button>
+
+      {/* Menu Button */}
       <div className="menu-container">
-        {/* Menu Button (82x82) */}
         <button className="menu-btn" onClick={() => setIsOpen(!isOpen)}>
           <img src="/images/melody/btn_menu.png" alt="Menu" />
         </button>
@@ -34,13 +93,24 @@ const MelodyGame = () => {
               exit={{ opacity: 0, y: -20 }}
               className="menu-panel"
             >
-              <button className="menu-item">
+              {/* 播放按鈕 */}
+              <button className="menu-item" onClick={() => setIsPlaying(true)}>
                 <img src="/images/melody/btn_menu_play.png" alt="Play" />
               </button>
-              <button className="menu-item">
-                <img src="/images/melody/btn_menu_record.png" alt="Record" />
+
+              {/* 停止播放 */}
+              <button className="menu-item" onClick={() => setIsPlaying(false)}>
+                <img src="/images/melody/btn_menu_record.png" alt="Stop" />
               </button>
-              <button className="menu-item">
+
+              {/* 重新播放 */}
+              <button
+                className="menu-item"
+                onClick={() => {
+                  setAudioIndex(0);
+                  setIsPlaying(true);
+                }}
+              >
                 <img src="/images/melody/btn_menu_restart.png" alt="Restart" />
               </button>
             </motion.div>
@@ -53,21 +123,16 @@ const MelodyGame = () => {
         onClick={() => navigate("/melody/tutorial")}
       ></button>
 
+      {/* Notes UI */}
       <div className="notes">
-        <div className="note note_2_G4"></div>
-        <div className="note note_1_E4"></div>
-        <div className="note note_1_F4"></div>
-
-        <div className="note note_2_G4"></div>
-        <div className="note note_1_E4"></div>
-        <div className="note note_1_F4"></div>
-
-        <div className="note note_1_G4"></div>
-        <div className="note note_1_G4"></div>
-        <div className="note note_1_A4"></div>
-        <div className="note note_1_A4"></div>
-
-        <div className="note note_4_G4"></div>
+        {noteClasses.map((noteClass, index) => (
+          <div
+            key={index}
+            className={`note ${noteClass} ${
+              activeNoteIndex === index ? "active" : ""
+            }`}
+          ></div>
+        ))}
       </div>
     </div>
   );
