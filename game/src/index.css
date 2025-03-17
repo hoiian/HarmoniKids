@@ -69,46 +69,56 @@ body {
 }
 
 /* 菱形圖片容器 */
+
 .diamond-container {
   position: absolute;
   right: 50px;
   top: 84px;
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
   width: 920px;
   height: 730px;
 }
 
-/* 單張圖片 */
-/* .diamond-image1, */
-.diamond-container a {
+.diamond-item {
   position: absolute;
   top: 50%;
   left: 50%;
-  /* transform: translate(-50%, -50%); */
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.5s ease-in-out; /* 平滑動畫 */
+  cursor: pointer;
 }
+
+/* 當 melody 不在下方時，加上模糊效果並禁用點擊 */
+.blurred {
+  filter: blur(3px);
+  /* pointer-events: none; */
+}
+/* 單張圖片 */
+/* .diamond-image1, */
+/* .diamond-container a {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transition: transform 0.3s ease-in-out;
+} */
 /* 節拍 下 */
-.diamond-container a:nth-child(1) {
+/* .diamond-container a:nth-child(1) {
   transform: translate(-50%, -50%) translate(-33px, 128px);
   z-index: 4;
-}
+} */
 /* 音高 右 */
-.diamond-container a:nth-child(2) {
+/* .diamond-container a:nth-child(2) {
   transform: translate(-50%, -50%) translate(245px, 56px);
   z-index: 3;
-}
+} */
 /* 旋律 上 */
-.diamond-container a:nth-child(3) {
+/* .diamond-container a:nth-child(3) {
   transform: translate(-50%, -50%) translate(43px, -168px);
   z-index: 1;
-}
+} */
 /* 鎖 左 */
-.diamond-container a:nth-child(4) {
+/* .diamond-container a:nth-child(4) {
   transform: translate(-50%, -50%) translate(-248px, -78px);
   z-index: 2;
-}
+} */
 
 .settingBtn {
   position: absolute;

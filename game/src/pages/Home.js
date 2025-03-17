@@ -1,6 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Home() {
   const navigate = useNavigate();
@@ -10,6 +9,23 @@ function Home() {
     "/images/home/thumbnail3_melody.png",
     "/images/home/thumbnail4_lock.png",
   ];
+
+  const [positions, setPositions] = useState([
+    { x: -33, y: 128, zIndex: 4 }, // 下
+    { x: 245, y: 56, zIndex: 3 }, // 右
+    { x: 43, y: -168, zIndex: 1 }, // 上
+    { x: -248, y: -78, zIndex: 2 }, // 左
+  ]);
+
+  // **順時針旋轉**
+  const rotateClockwise = () => {
+    setPositions((prev) => [prev[3], prev[0], prev[1], prev[2]]);
+  };
+
+  // **逆時針旋轉**
+  const rotateCounterClockwise = () => {
+    setPositions((prev) => [prev[1], prev[2], prev[3], prev[0]]);
+  };
 
   return (
     <div className="home-container container">
@@ -29,17 +45,28 @@ function Home() {
       />
 
       {/* 菱形圖片 */}
-      {/* <DiamondGrid /> */}
       <div className="diamond-container">
-        {images.map((src, index) => (
-          <Link
-            to={index === 2 ? "/melody/story" : "#"} // 只有第 3 張圖片可以跳轉
-            key={index}
-            className={index === 2 ? "clickable" : "non-clickable"} // 加 class 控制樣式
-          >
-            <img src={src} alt={`img-${index}`} className="diamond-image" />
-          </Link>
-        ))}
+        {images.map((src, index) => {
+          const isBottom = index === 0; // 當前圖片是否在下方
+          return (
+            <Link
+              to={isBottom ? "/melody/story" : "#"} // 只有下方圖片可跳轉
+              key={index}
+              className={`diamond-item ${!isBottom ? "blurred" : ""}`}
+              onClick={(e) => {
+                if (index === 1) rotateClockwise(); // 點擊右方圖片 → 順時針旋轉
+                if (index === 3) rotateCounterClockwise(); // 點擊左方圖片 → 逆時針旋轉
+                if (!isBottom) e.preventDefault(); // 防止未到達下方時的點擊跳轉
+              }}
+              style={{
+                transform: `translate(-50%, -50%) translate(${positions[index].x}px, ${positions[index].y}px)`,
+                zIndex: positions[index].zIndex,
+              }}
+            >
+              <img src={src} alt={`img-${index}`} className="diamond-image" />
+            </Link>
+          );
+        })}
       </div>
 
       <img
