@@ -9,7 +9,8 @@ from ultralytics import YOLO
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)  # 允許所有請求
+# CORS(app)  # 允許所有請求
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
 last_recognized_notes = []
@@ -23,11 +24,13 @@ note_to_sound = {
     ('quarter_note', 'G3'): 'quarter_note_C3_Sol.wav',
     ('quarter_note', 'A3'): 'quarter_note_C3_La.wav',
     ('quarter_note', 'B3'): 'quarter_note_C3_Si.wav',
-    ('quarter_note', 'C4'): '1_Do.wav',
-    ('quarter_note', 'D4'): '1_Re.wav',
-    ('quarter_note', 'E4'): '1_Mi.wav',
-    ('quarter_note', 'F4'): '1_Fa.wav',
-    ('quarter_note', 'G4'): '1_Sol.wav',
+    ('quarter_note', 'C4'): '1_C4.wav',
+    ('quarter_note', 'D4'): '1_D4.wav',
+    ('quarter_note', 'E4'): '1_E4.wav',
+    ('quarter_note', 'F4'): '1_F4.wav',
+    ('quarter_note', 'G4'): '1_G4.wav',
+    ('quarter_note', 'A4'): '1_A4.wav',
+    ('quarter_note', 'B4'): '1_B4.wav',
 
     ('half_note', 'C3'): 'half_note_C3_Do.wav',
     ('half_note', 'D3'): 'half_note_C3_Re.wav',
@@ -41,6 +44,8 @@ note_to_sound = {
     ('half_note', 'E4'): '2_E4.wav',
     ('half_note', 'F4'): '2_F4.wav',
     ('half_note', 'G4'): '2_G4.wav',
+    ('half_note', 'A4'): '2_A4.wav',
+    ('half_note', 'B4'): '2_B4.wav',
 
     ('whole_note', 'C3'): 'whole_note_C3_Do.wav',
     ('whole_note', 'D3'): 'whole_note_C3_Re.wav',
@@ -53,7 +58,9 @@ note_to_sound = {
     ('whole_note', 'D4'): '4_D4.wav',
     ('whole_note', 'E4'): '4_E4.wav',
     ('whole_note', 'F4'): '4_F4.wav',
-    ('whole_note', 'G4'): '4_G4.wav'
+    ('whole_note', 'G4'): '4_G4.wav',
+    ('whole_note', 'A4'): '4_A4.wav',
+    ('whole_note', 'B4'): '4_B4.wav'
     # 若有更多音符和音高組合，請在此加入對應檔名
 }
 
@@ -211,7 +218,7 @@ def capture():
     global last_recognized_notes
     data = request.form.get('image')
     if not data:
-        return "No image data", 400
+        return jsonify({"status": "error", "message": "No image data"}), 400
 
     # decode base64 to image
     header, encoded = data.split(',', 1)
@@ -234,6 +241,12 @@ def capture():
 def play():
     global last_recognized_notes
     return jsonify({"status": "ok", "notes": last_recognized_notes})
+
+@app.route('/api/reset', methods=['POST'])
+def reset():
+    global last_recognized_notes
+    last_recognized_notes = []  # 清空紀錄的音符
+    return jsonify({"status": "ok", "message": "已重置所有音符"})
 
 if __name__ == '__main__':
     app.run(debug=True)

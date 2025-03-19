@@ -101,7 +101,7 @@ body {
   padding: 12px 20px;
   border-radius: 8px;
   font-size: 28px;
-  animation: fadeInOut 2s ease-in-out;
+  animation: fadeInOut 1s ease-in-out;
   z-index: 9;
 }
 
@@ -411,7 +411,7 @@ body {
   position: absolute;
   top: 158px;
   left: 93px;
-  background-image: url("../public/images/melody/position.png");
+  /* background-image: url("../public/images/melody/position.png"); */
 }
 
 .notes .note {
@@ -572,4 +572,16 @@ body {
   background-image: url("../public/images/melody/result_next.png");
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+.camera-video {
+  position: absolute;
+  bottom: 20px;
+  left: 80px;
+  width: 400px;
+  height: 300px;
+  border: 2px solid white;
+  border-radius: 10px;
+  background: black;
+  display: block; /* 先顯示攝影機，之後可以改成 none */
 }

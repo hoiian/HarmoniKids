@@ -41,7 +41,7 @@ function Home() {
     setShowToast(true);
     setTimeout(() => {
       setShowToast(false);
-    }, 1900);
+    }, 950);
   };
 
   return (
