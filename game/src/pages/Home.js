@@ -19,6 +19,7 @@ function Home() {
   ]);
 
   const [currentOrder, setCurrentOrder] = useState([0, 1, 2, 3]); // 控制當前圖片的順序
+  const [showToast, setShowToast] = useState(false); // 控制 toast 顯示
 
   // 確認當前下方 item 是哪個
   const bottomIndex = 0;
@@ -33,6 +34,14 @@ function Home() {
   // **逆時針旋轉**
   const rotateCounterClockwise = () => {
     setCurrentOrder((prev) => [prev[1], prev[2], prev[3], prev[0]]);
+  };
+
+  // **顯示 Toast 並在 3 秒後消失**
+  const showToastMessage = () => {
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+    }, 1900);
   };
 
   return (
@@ -73,7 +82,7 @@ function Home() {
                   if (isMelodyAtBottom) {
                     navigate("/melody/story");
                   } else {
-                    alert("Not Available");
+                    showToastMessage(); // 顯示 Not Available Toast
                   }
                 }
               }}
@@ -101,6 +110,18 @@ function Home() {
         alt="設定入口"
         className="settingBtn"
       />
+
+      {/* Toast 提示 */}
+      {showToast && (
+        <motion.div
+          className="toast-message"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+        >
+          Not Available
+        </motion.div>
+      )}
     </div>
   );
 }
