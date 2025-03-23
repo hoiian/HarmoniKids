@@ -585,3 +585,7 @@ body {
   background: black;
   display: block; /* 先顯示攝影機，之後可以改成 none */
 }
+
+.hidden {
+  display: none;
+}

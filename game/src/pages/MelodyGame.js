@@ -10,6 +10,7 @@ const MelodyGame = () => {
   const [audioIndex, setAudioIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeNoteIndex, setActiveNoteIndex] = useState(null);
+  const [hiddenNotes, setHiddenNotes] = useState([]); // 🔹 狀態：要隱藏的音符
   const [loading, setLoading] = useState(false);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -179,6 +180,15 @@ const MelodyGame = () => {
           }
         };
 
+        // **轉換音符為 `noteClasses` 類別名稱**
+        const matchedNotes = data.notes
+          .map(([noteType, pitch]) => `note_${noteType}_${pitch}`) // 🔹 轉換成 class 格式
+          .filter((note) => noteClasses.includes(note)); // **過濾掉不在 noteClasses 裡的音符**
+
+        console.log("🔹 需要隱藏的音符:", matchedNotes);
+
+        setHiddenNotes(matchedNotes); // **🔹 更新 hiddenNotes**
+
         // **直接嘗試播放第一個音檔**
         playNextAudio();
       } else {
@@ -346,7 +356,7 @@ const MelodyGame = () => {
           <div
             key={index}
             className={`note ${noteClass} ${
-              activeNoteIndex === index ? "active" : ""
+              hiddenNotes.includes(noteClass) ? "hidden" : ""
             }`}
           ></div>
         ))}

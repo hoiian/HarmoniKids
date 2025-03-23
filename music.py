@@ -65,9 +65,6 @@ note_to_sound = {
 }
 
 def recognize_notes(img_path):
-    # ------------------------------
-    # 以下為 YOLO + 五線譜辨識流程
-    # ------------------------------
     img = cv2.imread(img_path)
     height, width = img.shape[:2]
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -92,7 +89,6 @@ def recognize_notes(img_path):
     valid_lines = []
     angle_tolerance = 20.0
 
-    # 篩選接近水平的線段
     for l in lines:
         x1, y1, x2, y2 = l[0]
         angle = line_angle(x1, y1, x2, y2)
@@ -108,7 +104,6 @@ def recognize_notes(img_path):
         print("不足以分出五條譜線")
         return []
 
-    # 用 KMeans 分群找出 5 條主要譜線
     X = np.array([[line[5]] for line in valid_lines])
     kmeans = KMeans(n_clusters=5, random_state=0, n_init='auto')
     kmeans.fit(X)
@@ -120,19 +115,19 @@ def recognize_notes(img_path):
 
     def fit_line(cluster):
         points = []
-        for (x1,y1,x2,y2,length,yc) in cluster:
-            points.append((x1,y1))
-            points.append((x2,y2))
+        for (x1, y1, x2, y2, length, yc) in cluster:
+            points.append((x1, y1))
+            points.append((x2, y2))
         points = np.array(points)
-        xs = points[:,0]
-        ys = points[:,1]
+        xs = points[:, 0]
+        ys = points[:, 1]
         if len(xs) < 2:
             return None
         m, c = np.polyfit(xs, ys, 1)
         x_left = 0
-        y_left = int(m*x_left + c)
+        y_left = int(m * x_left + c)
         x_right = width - 1
-        y_right = int(m*x_right + c)
+        y_right = int(m * x_right + c)
         return (x_left, y_left, x_right, y_right, m, c)
 
     fitted_lines = []
@@ -141,15 +136,13 @@ def recognize_notes(img_path):
         if line_data:
             fitted_lines.append(line_data)
 
-    # 由上而下排序只留 5 條線
-    fitted_lines.sort(key=lambda l: (l[1]+l[3])/2)
+    fitted_lines.sort(key=lambda l: (l[1] + l[3]) / 2)
     fitted_lines = fitted_lines[:5]
 
-    # 計算平均行距
     line_spacings = []
-    for i in range(len(fitted_lines)-1):
+    for i in range(len(fitted_lines) - 1):
         current_line_mid_y = (fitted_lines[i][1] + fitted_lines[i][3]) / 2
-        next_line_mid_y = (fitted_lines[i+1][1] + fitted_lines[i+1][3]) / 2
+        next_line_mid_y = (fitted_lines[i + 1][1] + fitted_lines[i + 1][3]) / 2
         line_spacings.append(next_line_mid_y - current_line_mid_y)
 
     if len(line_spacings) == 0:
@@ -158,29 +151,25 @@ def recognize_notes(img_path):
 
     average_spacing = np.mean(line_spacings)
 
-    # 最下面那條線
     bottom_line = fitted_lines[-1]
     (x_left_bottom, y_left_bottom, x_right_bottom, y_right_bottom, m_bottom, c_bottom) = bottom_line
 
-    # 加一條下加線(ledger line) 以利音高判斷
     y_left_new = int(y_left_bottom + average_spacing)
     y_right_new = int(y_right_bottom + average_spacing)
-    new_line = (0, y_left_new, width-1, y_right_new)
+    new_line = (0, y_left_new, width - 1, y_right_new)
 
-    # 音名對照表 (可自行調整增減)
-    note_map = ["C3","D3","E3","F3","G3","A3","B3","C4","D4","E4","F4"]
+    note_map = ["C4", "D4", "E4", "F4", "G4", "A4", "B4", "C5", "D5", "E5", "F5"]
     y_ledger_line_mid = (new_line[1] + new_line[3]) / 2.0
     half_spacing = average_spacing / 2.0
 
     def get_pitch(y_pitch):
         diff = y_ledger_line_mid - y_pitch
-        steps = round(diff / half_spacing)  # 每半 spacing 算一個音
+        steps = round(diff / half_spacing)
         if 0 <= steps < len(note_map):
             return note_map[steps]
         else:
             return "Unknown"
 
-    # 使用 YOLO 做音符偵測
     model = YOLO('best.pt')
     results = model.predict(source=img_path, conf=0.5)
 
@@ -192,22 +181,20 @@ def recognize_notes(img_path):
             score = box.conf[0].item()
             label_class = model.names[class_id]
 
-            # 依音符類型決定音高取樣點
             box_height = y2_ - y1_
             if label_class in ["half_note", "quarter_note"]:
-                # 從下往上 1/5 處
                 y_pitch = y2_ - (box_height * 0.2)
             elif label_class == "whole_note":
-                # 正中央
                 y_pitch = (y1_ + y2_) / 2.0
             else:
-                # 其他類型，直接取中間
                 y_pitch = (y1_ + y2_) / 2.0
 
             pitch = get_pitch(y_pitch)
-            recognized_notes.append((label_class, pitch))
+            recognized_notes.append((label_class, pitch, x1_))
 
-    return recognized_notes
+    recognized_notes.sort(key=lambda note: note[2])
+
+    return [(note[0], note[1]) for note in recognized_notes]
 
 @app.route('/')
 def index():
