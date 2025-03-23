@@ -30,6 +30,14 @@ const MelodyGame = () => {
     "quarter_note|G4": "1_G4.wav",
     "quarter_note|A4": "1_A4.wav",
     "quarter_note|B4": "1_B4.wav",
+
+    "half_note|C3": "half_note_C3_Do.wav",
+    "half_note|D3": "half_note_C3_Re.wav",
+    "half_note|E3": "half_note_C3_Mi.wav",
+    "half_note|F3": "half_note_C3_Fa.wav",
+    "half_note|G3": "half_note_C3_Sol.wav",
+    "half_note|A3": "half_note_C3_La.wav",
+    "half_note|B3": "half_note_C3_Si.wav",
     "half_note|C4": "2_C4.wav",
     "half_note|D4": "2_D4.wav",
     "half_note|E4": "2_E4.wav",
@@ -37,6 +45,14 @@ const MelodyGame = () => {
     "half_note|G4": "2_G4.wav",
     "half_note|A4": "2_A4.wav",
     "half_note|B4": "2_B4.wav",
+
+    "whole_note|C3": "whole_note_C3_Do.wav",
+    "whole_note|D3": "whole_note_C3_Re.wav",
+    "whole_note|E3": "whole_note_C3_Mi.wav",
+    "whole_note|F3": "whole_note_C3_Fa.wav",
+    "whole_note|G3": "whole_note_C3_Sol.wav",
+    "whole_note|A3": "whole_note_C3_La.wav",
+    "whole_note|B3": "whole_note_C3_Si.wav",
     "whole_note|C4": "4_C4.wav",
     "whole_note|D4": "4_D4.wav",
     "whole_note|E4": "4_E4.wav",
@@ -112,11 +128,14 @@ const MelodyGame = () => {
         const audioFiles = data.notes
           .map(([noteType, pitch]) => {
             const key = `${noteType}|${pitch}`;
-            return mapping[key]
-              ? `${API_BASE_URL}/static/sounds/${mapping[key]}`
-              : null;
+            if (mapping[key]) {
+              return `${API_BASE_URL}/static/sounds/${mapping[key]}`;
+            } else {
+              console.warn(`⚠ 沒有對應的音檔: ${key}`);
+              return null;
+            }
           })
-          .filter(Boolean); // 過濾掉 `null`
+          .filter(Boolean); // **過濾掉 `null`**
 
         if (audioFiles.length === 0) {
           console.error("⚠ 沒有對應的音檔可播放");
@@ -124,11 +143,11 @@ const MelodyGame = () => {
         }
 
         let audioIndex = 0;
-        let audioElement = new Audio();
+        let userActionTriggered = false; // **防止重複觸發**
 
         const playNextAudio = () => {
           if (audioIndex < audioFiles.length) {
-            audioElement.src = audioFiles[audioIndex];
+            const audioElement = new Audio(audioFiles[audioIndex]);
 
             audioElement
               .play()
@@ -137,6 +156,18 @@ const MelodyGame = () => {
               })
               .catch((error) => {
                 console.error("⚠ 播放失敗:", error);
+
+                // **如果播放失敗，等待用戶互動後再播放**
+                if (!userActionTriggered) {
+                  document.body.addEventListener(
+                    "click",
+                    () => {
+                      playNextAudio();
+                      userActionTriggered = true;
+                    },
+                    { once: true }
+                  );
+                }
               });
 
             audioElement.onended = () => {
@@ -148,14 +179,8 @@ const MelodyGame = () => {
           }
         };
 
-        // 確保有用戶互動後播放
-        document.body.addEventListener(
-          "click",
-          () => {
-            playNextAudio();
-          },
-          { once: true }
-        );
+        // **直接嘗試播放第一個音檔**
+        playNextAudio();
       } else {
         console.error("⚠ 沒有音符可播放");
       }
