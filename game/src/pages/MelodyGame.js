@@ -180,9 +180,19 @@ const MelodyGame = () => {
           }
         };
 
+        // 定義音符類型對應的數字
+        const noteClassMapping = {
+          whole_note: "4",
+          half_note: "2",
+          quarter_note: "1",
+        };
+
         // **轉換音符為 `noteClasses` 類別名稱**
         const matchedNotes = data.notes
-          .map(([noteType, pitch]) => `note_${noteType}_${pitch}`) // 🔹 轉換成 class 格式
+          .map(([noteType, pitch]) => {
+            const noteNumber = noteClassMapping[noteType] || "1"; // 預設為 1
+            return `note_${noteNumber}_${pitch}`;
+          })
           .filter((note) => noteClasses.includes(note)); // **過濾掉不在 noteClasses 裡的音符**
 
         console.log("🔹 需要隱藏的音符:", matchedNotes);
