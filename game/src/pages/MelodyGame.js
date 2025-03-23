@@ -125,7 +125,22 @@ const MelodyGame = () => {
       if (data.status === "ok" && data.notes.length > 0) {
         console.log("🎵 開始播放音符:", data.notes);
 
-        // **轉換音符為音檔名稱**
+        // **音符類型對應的數字**
+        const noteClassMapping = {
+          whole_note: "4",
+          half_note: "2",
+          quarter_note: "1",
+        };
+
+        // **轉換音符為 `noteClasses` 格式，確保順序**
+        const matchedNotes = data.notes.map(([noteType, pitch]) => {
+          const noteNumber = noteClassMapping[noteType] || "1"; // 預設為 1
+          return `note_${noteNumber}_${pitch}`;
+        });
+
+        console.log("🔹 需要隱藏的音符:", matchedNotes);
+
+        // **音符對應音檔**
         const audioFiles = data.notes
           .map(([noteType, pitch]) => {
             const key = `${noteType}|${pitch}`;
@@ -145,6 +160,8 @@ const MelodyGame = () => {
 
         let audioIndex = 0;
         let userActionTriggered = false; // **防止重複觸發**
+        let hiddenNoteIndexes = new Set(); // **記錄已隱藏的音符索引**
+        let hiddenIndexTracker = {}; // **追蹤每個 class 已隱藏的次數**
 
         const playNextAudio = () => {
           if (audioIndex < audioFiles.length) {
@@ -154,6 +171,36 @@ const MelodyGame = () => {
               .play()
               .then(() => {
                 console.log(`▶ 播放中: ${audioFiles[audioIndex]}`);
+
+                // **確保隱藏當前播放的音符**
+                if (
+                  audioIndex < matchedNotes.length &&
+                  !hiddenNoteIndexes.has(audioIndex)
+                ) {
+                  const noteClass = matchedNotes[audioIndex];
+                  console.log(`🔹 準備隱藏音符: ${noteClass}`);
+
+                  // **獲取所有匹配該 class 的元素**
+                  const elements = document.querySelectorAll(`.${noteClass}`);
+
+                  // **確保是正確順序的元素**
+                  if (!hiddenIndexTracker[noteClass]) {
+                    hiddenIndexTracker[noteClass] = 0;
+                  }
+
+                  if (hiddenIndexTracker[noteClass] < elements.length) {
+                    elements[hiddenIndexTracker[noteClass]].style.display =
+                      "none";
+                    console.log(
+                      `✅ 隱藏第 ${
+                        hiddenIndexTracker[noteClass] + 1
+                      } 個 ${noteClass}`
+                    );
+                    hiddenIndexTracker[noteClass]++; // **更新已隱藏次數**
+                  }
+
+                  hiddenNoteIndexes.add(audioIndex);
+                }
               })
               .catch((error) => {
                 console.error("⚠ 播放失敗:", error);
@@ -179,25 +226,6 @@ const MelodyGame = () => {
             console.log("🎶 所有音符播放完畢！");
           }
         };
-
-        // 定義音符類型對應的數字
-        const noteClassMapping = {
-          whole_note: "4",
-          half_note: "2",
-          quarter_note: "1",
-        };
-
-        // **轉換音符為 `noteClasses` 類別名稱**
-        const matchedNotes = data.notes
-          .map(([noteType, pitch]) => {
-            const noteNumber = noteClassMapping[noteType] || "1"; // 預設為 1
-            return `note_${noteNumber}_${pitch}`;
-          })
-          .filter((note) => noteClasses.includes(note)); // **過濾掉不在 noteClasses 裡的音符**
-
-        console.log("🔹 需要隱藏的音符:", matchedNotes);
-
-        setHiddenNotes(matchedNotes); // **🔹 更新 hiddenNotes**
 
         // **直接嘗試播放第一個音檔**
         playNextAudio();
