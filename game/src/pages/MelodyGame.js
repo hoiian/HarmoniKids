@@ -178,7 +178,11 @@ const MelodyGame = () => {
                 // **隱藏對應的音符**
                 if (currentPlayIndex < noteClasses.length) {
                   const noteClass = noteClasses[currentPlayIndex];
-                  setHiddenNotes((prev) => [...prev, noteClass]); // **隱藏當前音符**
+                  // setHiddenNotes((prev) => [...prev, noteClass]); // **隱藏當前音符**
+                  setHiddenNotes((prev) => [
+                    ...prev,
+                    `${noteClasses[currentPlayIndex]}_${currentPlayIndex}`, // **加上索引確保唯一性**
+                  ]);
                   console.log(
                     `✅ 隱藏: ${noteClass} - 第 ${currentPlayIndex + 1} 個`
                   );
@@ -311,7 +315,7 @@ const MelodyGame = () => {
           <div
             key={index}
             className={`note ${noteClass} ${
-              hiddenNotes.includes(noteClass) ? "hidden" : ""
+              hiddenNotes.includes(`${noteClass}_${index}`) ? "hidden" : ""
             }`}
           ></div>
         ))}

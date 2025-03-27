@@ -413,7 +413,7 @@ body {
   position: absolute;
   top: 144px;
   left: 146px;
-  background-image: url("../public/images/melody/position.png");
+  /* background-image: url("../public/images/melody/position.png"); */
 }
 
 .notes .note {
