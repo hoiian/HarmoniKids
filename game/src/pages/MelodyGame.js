@@ -133,9 +133,9 @@ const MelodyGame = () => {
           quarter_note: "1",
         };
 
-        // **轉換音符為 `noteClasses` 格式，確保順序**
+        // **轉換音符為 noteClasses 格式**
         const matchedNotes = data.notes.map(([noteType, pitch]) => {
-          const noteNumber = noteClassMapping[noteType] || "1"; // 預設為 1
+          const noteNumber = noteClassMapping[noteType] || "1";
           return `note_${noteNumber}_${pitch}`;
         });
 
@@ -152,83 +152,53 @@ const MelodyGame = () => {
               return null;
             }
           })
-          .filter(Boolean); // **過濾掉 `null`**
+          .filter(Boolean);
 
         if (audioFiles.length === 0) {
           console.error("⚠ 沒有對應的音檔可播放");
           return;
         }
 
-        let audioIndex = 0;
-        let userActionTriggered = false; // **防止重複觸發**
-        let hiddenNoteIndexes = new Set(); // **記錄已隱藏的音符索引**
-        let hiddenIndexTracker = {}; // **追蹤每個 class 已隱藏的次數**
+        let currentPlayIndex = audioIndex; // **從上次的播放進度繼續**
+        console.log(`🔄 從索引 ${currentPlayIndex} 開始播放`);
 
         const playNextAudio = () => {
-          if (audioIndex < audioFiles.length) {
-            const audioElement = new Audio(audioFiles[audioIndex]);
+          if (currentPlayIndex < audioIndex + audioFiles.length) {
+            const audioElement = new Audio(
+              audioFiles[currentPlayIndex - audioIndex]
+            );
 
             audioElement
               .play()
               .then(() => {
-                console.log(`▶ 播放中: ${audioFiles[audioIndex]}`);
+                console.log(
+                  `▶ 播放中: ${audioFiles[currentPlayIndex - audioIndex]}`
+                );
 
-                // **確保隱藏當前播放的音符**
-                if (
-                  audioIndex < matchedNotes.length &&
-                  !hiddenNoteIndexes.has(audioIndex)
-                ) {
-                  const noteClass = matchedNotes[audioIndex];
-                  console.log(`🔹 準備隱藏音符: ${noteClass}`);
-
-                  // **獲取所有匹配該 class 的元素**
-                  const elements = document.querySelectorAll(`.${noteClass}`);
-
-                  // **確保是正確順序的元素**
-                  if (!hiddenIndexTracker[noteClass]) {
-                    hiddenIndexTracker[noteClass] = 0;
-                  }
-
-                  if (hiddenIndexTracker[noteClass] < elements.length) {
-                    elements[hiddenIndexTracker[noteClass]].style.display =
-                      "none";
-                    console.log(
-                      `✅ 隱藏第 ${
-                        hiddenIndexTracker[noteClass] + 1
-                      } 個 ${noteClass}`
-                    );
-                    hiddenIndexTracker[noteClass]++; // **更新已隱藏次數**
-                  }
-
-                  hiddenNoteIndexes.add(audioIndex);
+                // **隱藏對應的音符**
+                if (currentPlayIndex < noteClasses.length) {
+                  const noteClass = noteClasses[currentPlayIndex];
+                  setHiddenNotes((prev) => [...prev, noteClass]); // **隱藏當前音符**
+                  console.log(
+                    `✅ 隱藏: ${noteClass} - 第 ${currentPlayIndex + 1} 個`
+                  );
                 }
               })
               .catch((error) => {
                 console.error("⚠ 播放失敗:", error);
-
-                // **如果播放失敗，等待用戶互動後再播放**
-                if (!userActionTriggered) {
-                  document.body.addEventListener(
-                    "click",
-                    () => {
-                      playNextAudio();
-                      userActionTriggered = true;
-                    },
-                    { once: true }
-                  );
-                }
               });
 
             audioElement.onended = () => {
-              audioIndex++;
-              playNextAudio(); // 播放下一個音檔
+              currentPlayIndex++;
+              setAudioIndex((prev) => prev + 1); // **更新 `audioIndex` 以持續追蹤**
+              playNextAudio();
             };
           } else {
             console.log("🎶 所有音符播放完畢！");
           }
         };
 
-        // **直接嘗試播放第一個音檔**
+        // **開始播放**
         playNextAudio();
       } else {
         console.error("⚠ 沒有音符可播放");
@@ -237,7 +207,6 @@ const MelodyGame = () => {
       console.error("❌ 播放音符時發生錯誤:", error);
     }
   };
-
   // **🔹 重置辨識結果**
   const handleReset = async () => {
     try {

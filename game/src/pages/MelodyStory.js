@@ -32,10 +32,10 @@ function MelodyStory() {
       {/* 返回首頁 */}
       <div className="BackBtn" onClick={() => navigate("/")}></div>
       {/* 顯示 / 隱藏 storyText 的按鈕 */}
-      <button
+      {/* <button
         className="toggle-text-btn"
         onClick={() => setShowText(!showText)}
-      ></button>
+      ></button> */}
 
       {/* 只有 showText 為 true 時才顯示文本 */}
       {showText && (
@@ -56,7 +56,11 @@ function MelodyStory() {
       </div>
 
       {/* Menu */}
-      <MelodyMenu isOpen={isOpen} />
+      <MelodyMenu
+        isOpen={isOpen}
+        showText={showText}
+        setShowText={setShowText}
+      />
     </div>
   );
 }

@@ -252,8 +252,8 @@ body {
   border: none;
   cursor: pointer;
   position: absolute;
-  top: 50%;
-  transform: translateY(-100%);
+  top: 384px;
+  /* transform: translateY(-50%); */
   background: none;
 }
 
@@ -361,8 +361,8 @@ body {
 /* Menu Button 容器 */
 .menu-container {
   position: fixed;
-  top: 24px;
-  right: 24px;
+  top: 20px;
+  right: 28px;
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -485,22 +485,22 @@ body {
 }
 
 .notes .note:nth-child(7) {
-  top: 225px;
+  top: 226px;
   left: 68px;
 }
 
 .notes .note:nth-child(8) {
-  top: 225px;
+  top: 226px;
   left: 172px;
 }
 
 .notes .note:nth-child(9) {
-  top: 225px;
+  top: 226px;
   left: 278px;
 }
 
 .notes .note:nth-child(10) {
-  top: 225px;
+  top: 226px;
   left: 387px;
 }
 
@@ -567,10 +567,10 @@ body {
 
 .result-next {
   position: absolute;
-  bottom: 0px;
-  right: 45px;
-  width: 329px;
-  height: 222px;
+  bottom: 88px;
+  right: 124px;
+  width: 100px;
+  height: 100px;
   background-image: url("../public/images/melody/result_next.png");
   background-size: contain;
   background-repeat: no-repeat;

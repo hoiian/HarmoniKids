@@ -1,7 +1,14 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const MelodyMenu = ({ handlePlay, handleRecord, handleReset, loading }) => {
+const MelodyMenu = ({
+  handlePlay,
+  handleRecord,
+  handleReset,
+  loading,
+  showText,
+  setShowText,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -28,6 +35,10 @@ const MelodyMenu = ({ handlePlay, handleRecord, handleReset, loading }) => {
               <img src="/images/melody/btn_menu_play.png" alt="Play" />
             </button>
 
+            <button className="menu-item">
+              <img src="/images/melody/btn_menu_pause.png" alt="Pause" />
+            </button>
+
             <button
               className="menu-item"
               onClick={handleRecord}
@@ -38,6 +49,14 @@ const MelodyMenu = ({ handlePlay, handleRecord, handleReset, loading }) => {
 
             <button className="menu-item" onClick={handleReset}>
               <img src="/images/melody/btn_menu_restart.png" alt="Reset" />
+            </button>
+
+            {/* 控制文本顯示的按鈕 */}
+            <button
+              className="menu-item"
+              onClick={() => setShowText(!showText)}
+            >
+              <img src="/images/melody/btn_menu_story.png" alt="Story" />
             </button>
           </motion.div>
         )}
