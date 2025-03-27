@@ -201,7 +201,19 @@ const MelodyGame = () => {
 
             audioElement.onended = () => {
               currentPlayIndex++;
-              setAudioIndex((prev) => prev + 1); // **更新 `audioIndex` 以持續追蹤**
+              setAudioIndex((prev) => {
+                const newIndex = prev + 1;
+
+                // **🔹 當 audioIndex 達到 10，等待 2 秒後跳轉到結果頁面**
+                if (newIndex === 10) {
+                  console.log("🎯 播放完成，2 秒後跳轉到結果頁面");
+                  setTimeout(() => {
+                    navigate("/melody/result");
+                  }, 2000); // **延遲 2 秒**
+                }
+
+                return newIndex;
+              });
               playNextAudio();
             };
           } else {
@@ -299,9 +311,9 @@ const MelodyGame = () => {
       ></div>
 
       {/* 測試用按鈕（跳轉到 MelodyGameResult） */}
-      <button className="test-btn" onClick={() => navigate("/melody/result")}>
+      {/* <button className="test-btn" onClick={() => navigate("/melody/result")}>
         到結果頁（測試用）
-      </button>
+      </button> */}
 
       {/* Menu */}
       <MelodyMenu
