@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import MelodyMenu from "./MelodyMenu"; // 引入 MelodyMenu
 
 const MelodyTutorial = () => {
   const navigate = useNavigate();
@@ -31,6 +33,9 @@ const MelodyTutorial = () => {
         className="arrow right"
         onClick={() => navigate("/melody/game")}
       ></button>
+
+      {/* Menu */}
+      <MelodyMenu />
     </div>
   );
 };

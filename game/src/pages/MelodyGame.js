@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import MelodyMenu from "./MelodyMenu"; // 引入 MelodyMenu
 
 const API_BASE_URL = "http://127.0.0.1:5000"; // Flask 伺服器地址
 
@@ -321,70 +322,17 @@ const MelodyGame = () => {
         到結果頁（測試用）
       </button>
 
-      {/* Menu Button */}
-      <div className="menu-container">
-        <button className="menu-btn" onClick={() => setIsOpen(!isOpen)}>
-          <img src="/images/melody/btn_menu.png" alt="Menu" />
-        </button>
-
-        {/* Menu Panel */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="menu-panel"
-            >
-              {/* 播放按鈕
-              <button className="menu-item" onClick={() => setIsPlaying(true)}>
-                <img src="/images/melody/btn_menu_play.png" alt="Play" />
-              </button>
-
-              識別+記憶
-              <button className="menu-item" onClick={() => setIsPlaying(false)}>
-                <img src="/images/melody/btn_menu_record.png" alt="Record" />
-              </button>
-
-              重置
-              <button
-                className="menu-item"
-                onClick={() => {
-                  setAudioIndex(0);
-                  setIsPlaying(true);
-                }}
-              >
-                <img src="/images/melody/btn_menu_restart.png" alt="Reset" />
-              </button> */}
-              {/* 播放按鈕 */}
-              <button
-                className="menu-item"
-                onClick={handlePlay}
-                disabled={loading}
-              >
-                <img src="/images/melody/btn_menu_play.png" alt="Play" />
-              </button>
-
-              {/* 辨識+記錄 */}
-              <button
-                className="menu-item"
-                onClick={handleRecord}
-                disabled={loading}
-              >
-                <img src="/images/melody/btn_menu_record.png" alt="Record" />
-              </button>
-
-              {/* 重置 */}
-              <button className="menu-item" onClick={handleReset}>
-                <img src="/images/melody/btn_menu_restart.png" alt="Reset" />
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      {/* Menu */}
+      <MelodyMenu
+        isOpen={isOpen}
+        handlePlay={handlePlay}
+        handleRecord={handleRecord}
+        handleReset={handleReset}
+        loading={loading}
+      />
 
       <button
-        className="arrow left left_black"
+        className="arrow left"
         onClick={() => navigate("/melody/tutorial")}
       ></button>
 

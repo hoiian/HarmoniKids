@@ -1,8 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import MelodyMenu from "./MelodyMenu";
 
 function MelodyStory() {
+  const [isOpen, setIsOpen] = useState(false);
   const [showText, setShowText] = useState(true); // 控制文本顯示
   const [lastVisited, setLastVisited] = useState(""); // 上次到訪時間
   const navigate = useNavigate();
@@ -37,8 +39,9 @@ function MelodyStory() {
 
       {/* 只有 showText 為 true 時才顯示文本 */}
       {showText && (
-        <div className="storyText">
-          皇后和她的士兵們走進洞穴，發現裡面意外地寬敞明亮，充滿著魔法的音符精靈，這些音符精靈隨著他們的腳步在牆上飛舞跳躍，時不時唱著各種旋律，講述著音符果實的誕生傳說。
+        <div className="storyText text-shadow-outline">
+          皇后帶著士兵走進洞穴，發現裡面寬敞又明亮！魔法音符精靈 <br />
+          在牆上飛舞，隨著腳步跳動，還唱著旋律，講述音符果實的神秘傳說。
         </div>
       )}
       <button
@@ -51,6 +54,9 @@ function MelodyStory() {
         <div className="badge-icon"></div>
         <div className="visit-time">{lastVisited || "首次訪問"}</div>
       </div>
+
+      {/* Menu */}
+      <MelodyMenu isOpen={isOpen} />
     </div>
   );
 }
