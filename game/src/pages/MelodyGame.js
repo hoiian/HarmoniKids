@@ -133,24 +133,21 @@ const MelodyGame = () => {
           quarter_note: "1",
         };
 
-        // **轉換音符為 noteClasses 格式**
+        // **轉換 API 回傳的音符為 noteClasses 格式**
         const matchedNotes = data.notes.map(([noteType, pitch]) => {
           const noteNumber = noteClassMapping[noteType] || "1";
           return `note_${noteNumber}_${pitch}`;
         });
 
-        console.log("🔹 需要隱藏的音符:", matchedNotes);
+        console.log("🔹 需要匹配的音符:", matchedNotes);
 
         // **音符對應音檔**
         const audioFiles = data.notes
           .map(([noteType, pitch]) => {
             const key = `${noteType}|${pitch}`;
-            if (mapping[key]) {
-              return `${API_BASE_URL}/static/sounds/${mapping[key]}`;
-            } else {
-              console.warn(`⚠ 沒有對應的音檔: ${key}`);
-              return null;
-            }
+            return mapping[key]
+              ? `${API_BASE_URL}/static/sounds/${mapping[key]}`
+              : null;
           })
           .filter(Boolean);
 
@@ -159,7 +156,7 @@ const MelodyGame = () => {
           return;
         }
 
-        let currentPlayIndex = audioIndex; // **從上次的播放進度繼續**
+        let currentPlayIndex = audioIndex; // **追蹤當前播放音符的索引**
         console.log(`🔄 從索引 ${currentPlayIndex} 開始播放`);
 
         const playNextAudio = () => {
@@ -175,16 +172,26 @@ const MelodyGame = () => {
                   `▶ 播放中: ${audioFiles[currentPlayIndex - audioIndex]}`
                 );
 
-                // **隱藏對應的音符**
-                if (currentPlayIndex < noteClasses.length) {
-                  const noteClass = noteClasses[currentPlayIndex];
-                  // setHiddenNotes((prev) => [...prev, noteClass]); // **隱藏當前音符**
+                // **確保 `matchedNotes` 與 `noteClasses` 匹配後才隱藏**
+                if (
+                  currentPlayIndex < noteClasses.length &&
+                  matchedNotes[currentPlayIndex - audioIndex] ===
+                    noteClasses[currentPlayIndex]
+                ) {
                   setHiddenNotes((prev) => [
                     ...prev,
-                    `${noteClasses[currentPlayIndex]}_${currentPlayIndex}`, // **加上索引確保唯一性**
+                    `${noteClasses[currentPlayIndex]}_${currentPlayIndex}`,
                   ]);
                   console.log(
-                    `✅ 隱藏: ${noteClass} - 第 ${currentPlayIndex + 1} 個`
+                    `✅ 隱藏: ${noteClasses[currentPlayIndex]} - 第 ${
+                      currentPlayIndex + 1
+                    } 個`
+                  );
+                } else {
+                  console.warn(
+                    `⚠ 音符不匹配: ${
+                      matchedNotes[currentPlayIndex - audioIndex]
+                    } vs ${noteClasses[currentPlayIndex]}`
                   );
                 }
               })
@@ -211,6 +218,7 @@ const MelodyGame = () => {
       console.error("❌ 播放音符時發生錯誤:", error);
     }
   };
+
   // **🔹 重置辨識結果**
   const handleReset = async () => {
     try {
