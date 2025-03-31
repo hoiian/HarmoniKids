@@ -55,7 +55,7 @@ function Home() {
 
       {/* 左下角學習歷程圖片，點擊時跳轉 */}
       <img
-        src="/images/home/learning.png"
+        src="/images/home/learning.gif"
         alt="學習歷程入口"
         className="learning-path"
         onClick={() => navigate("/learning-path")}

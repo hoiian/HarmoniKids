@@ -66,6 +66,8 @@ body {
   bottom: -9px;
   left: 24px;
   z-index: 1;
+  width: 252px;
+  height: 222px;
 }
 
 /* 菱形圖片容器 */
