@@ -347,6 +347,7 @@ const MelodyGame = () => {
         autoPlay
         playsInline
         className="camera-video"
+        style={{ opacity: "0" }}
       ></video>
 
       {/* 隱藏的 Canvas（用於擷取影像） */}
