@@ -58,6 +58,7 @@ function Home() {
       <div className="diamond-container">
         {currentOrder.map((imgIndex, positionIndex) => {
           const isBottom = positionIndex === 0;
+          const isTop = positionIndex === 2;
           const isLeft = positionIndex === 3;
           const isRight = positionIndex === 1;
 
@@ -80,16 +81,16 @@ function Home() {
             <motion.div
               key={imgIndex}
               className={`diamond-item ${!isBottom ? "blurred" : ""}`}
-              drag
+              drag={isLeft || isRight}
               dragElastic={0.005}
-              dragConstraints={{ left: -1, right: 1, top: -1, bottom: 1 }}
               onClick={handleAction}
               onDragEnd={(e, info) => {
+                // 小移動不觸發行為，直接還原位置
                 if (
                   Math.abs(info.offset.x) > 1 ||
                   Math.abs(info.offset.y) > 1
                 ) {
-                  handleAction();
+                  handleAction(); // 認定為拖動
                 }
               }}
               animate={{
