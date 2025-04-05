@@ -172,12 +172,12 @@ body {
 }
 
 .BackBtn_learningpath {
-  background-image: url("../public/images/learningPath/backBtn.png");
-  width: 66px;
-  height: 66px;
+  width: 80px;
+  height: 80px;
+  background-image: url("../public/images/melody/btn_back.png");
+  top: 9px;
+  left: 14px;
   position: absolute;
-  top: 14px;
-  left: 15px;
 }
 
 .successRate {
@@ -310,7 +310,7 @@ body {
 
 .last-visit-badge {
   position: absolute;
-  right: 214px;
+  right: 132px;
   bottom: 36px;
   display: flex;
   align-items: center;
