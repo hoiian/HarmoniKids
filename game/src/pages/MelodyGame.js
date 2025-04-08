@@ -15,6 +15,7 @@ const MelodyGame = () => {
   const [loading, setLoading] = useState(false);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+  const [showCamera, setShowCamera] = useState(false);
 
   // **音符對應音檔**
   const mapping = {
@@ -322,6 +323,9 @@ const MelodyGame = () => {
         handleRecord={handleRecord}
         handleReset={handleReset}
         loading={loading}
+        showCamera={showCamera}
+        setShowCamera={setShowCamera}
+        onlyShow="camera"
       />
 
       <button
@@ -347,7 +351,7 @@ const MelodyGame = () => {
         autoPlay
         playsInline
         className="camera-video"
-        style={{ opacity: "0" }}
+        style={{ opacity: showCamera ? 1 : 0 }}
       ></video>
 
       {/* 隱藏的 Canvas（用於擷取影像） */}

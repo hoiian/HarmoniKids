@@ -8,6 +8,9 @@ const MelodyMenu = ({
   loading,
   showText,
   setShowText,
+  showCamera,
+  setShowCamera,
+  onlyShow,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -52,12 +55,36 @@ const MelodyMenu = ({
             </button>
 
             {/* 控制文本顯示的按鈕 */}
-            <button
+            {/* <button
               className="menu-item"
               onClick={() => setShowText(!showText)}
             >
               <img src="/images/melody/btn_menu_story.png" alt="Story" />
             </button>
+
+            <button
+              className="menu-item"
+              onClick={() => setShowCamera((prev) => !prev)}
+            >
+              <img src="/images/melody/btn_menu_camera.png" alt="Camera" />
+            </button> */}
+            {onlyShow === "camera" && (
+              <button
+                className="menu-item"
+                onClick={() => setShowCamera((prev) => !prev)}
+              >
+                <img src="/images/melody/btn_menu_camera.png" alt="Camera" />
+              </button>
+            )}
+
+            {onlyShow === "story" && (
+              <button
+                className="menu-item"
+                onClick={() => setShowText(!showText)}
+              >
+                <img src="/images/melody/btn_menu_story.png" alt="Story" />
+              </button>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

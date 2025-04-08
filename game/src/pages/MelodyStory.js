@@ -60,6 +60,7 @@ function MelodyStory() {
         isOpen={isOpen}
         showText={showText}
         setShowText={setShowText}
+        onlyShow="story"
       />
     </div>
   );

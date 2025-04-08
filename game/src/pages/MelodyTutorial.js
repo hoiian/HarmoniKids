@@ -35,7 +35,7 @@ const MelodyTutorial = () => {
       ></button>
 
       {/* Menu */}
-      <MelodyMenu />
+      <MelodyMenu onlyShow="story" />
     </div>
   );
 };
