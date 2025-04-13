@@ -6,10 +6,10 @@ const MelodyGameResult = () => {
   return (
     <div className="melody-result-container container">
       {/* 返回按鈕 */}
-      <div
+      {/* <div
         className="BackBtn BackBtn_black"
         onClick={() => navigate("/melody/game")}
-      ></div>
+      ></div> */}
 
       {/* 主要圖片 */}
       <div className="result-image"></div>
@@ -23,7 +23,7 @@ const MelodyGameResult = () => {
         <div>
           <img src="/images/learningPath/star_on.png" alt="performance" />
           <img src="/images/learningPath/star_on.png" alt="performance" />
-          <img src="/images/learningPath/star_on.png" alt="performance" />
+          {/* <img src="/images/learningPath/star_on.png" alt="performance" /> */}
         </div>
       </div>
 

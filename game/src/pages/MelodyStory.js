@@ -5,7 +5,7 @@ import MelodyMenu from "./MelodyMenu";
 
 function MelodyStory() {
   const [isOpen, setIsOpen] = useState(false);
-  const [showText, setShowText] = useState(true); // 控制文本顯示
+  const [showText, setShowText] = useState(false); // 控制文本顯示
   const [lastVisited, setLastVisited] = useState(""); // 上次到訪時間
   const navigate = useNavigate();
 
@@ -23,12 +23,12 @@ function MelodyStory() {
 
   return (
     <div className="melody-story-container container">
-      <div className="video-container">
+      {/* <div className="video-container">
         <video autoPlay loop muted playsInline className="background-video">
           <source src="/videos/melody_story_bg.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-      </div>
+      </div> */}
       {/* 返回首頁 */}
       <div className="BackBtn" onClick={() => navigate("/")}></div>
       {/* 顯示 / 隱藏 storyText 的按鈕 */}
@@ -44,10 +44,10 @@ function MelodyStory() {
           在牆上飛舞，隨著腳步跳動，還唱著旋律，講述音符果實的神秘傳說。
         </div>
       )}
-      <button
-        className="arrow right"
+      <div
+        className="story_next"
         onClick={() => navigate("/melody/tutorial")}
-      ></button>
+      ></div>
 
       {/* 上次到訪的 badge */}
       <div className="last-visit-badge">

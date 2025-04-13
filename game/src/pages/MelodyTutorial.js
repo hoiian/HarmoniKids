@@ -19,7 +19,7 @@ const MelodyTutorial = () => {
       {/* <h1>Melody Tutorial Page</h1> */}
       <div className="BackBtn" onClick={() => navigate("/")}></div>
       <div className="video-container">
-        <video autoPlay loop playsInline>
+        <video autoPlay playsInline>
           <source src="/videos/melody_tutorial.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>

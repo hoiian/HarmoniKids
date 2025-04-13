@@ -276,8 +276,8 @@ body {
 /* ------旋律-故事------- */
 
 .melody-story-container {
-  /* background-image: url("../public/images/melody/bg_story.png");
-  background-size: 100% auto; */
+  background-image: url("../public/images/melody/bg_story.gif");
+  background-size: 100% auto;
 }
 
 .storyText {
@@ -329,6 +329,21 @@ body {
 .last-visit-badge .visit-time {
   font-size: 20px;
   color: #f0f0f0;
+}
+
+.story_next {
+  width: 272px;
+  height: 258px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: calc(50% + 60px);
+  left: calc(50% + 10px);
+
+  background-image: url("../public/images/melody/btn_story_next.gif");
 }
 /* ------旋律-教學------- */
 
