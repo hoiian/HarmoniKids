@@ -4,6 +4,7 @@ import MelodyMenu from "./MelodyMenu"; // 引入 MelodyMenu
 
 const MelodyTutorial = () => {
   const navigate = useNavigate();
+  const [showText, setShowText] = useState(false); // 控制文本顯示
   document.addEventListener("DOMContentLoaded", () => {
     const video = document.getElementById("bgVideo");
 
@@ -25,6 +26,14 @@ const MelodyTutorial = () => {
         </video>
       </div>
 
+      {/* 只有 showText 為 true 時才顯示文本 */}
+      {showText && (
+        <div className="storyText text-shadow-outline">
+          皇后帶著士兵走進洞穴，發現裡面寬敞又明亮！魔法音符精靈 <br />
+          在牆上飛舞，隨著腳步跳動，還唱著旋律，講述音符果實的神秘傳說。
+        </div>
+      )}
+
       <button
         className="arrow left"
         onClick={() => navigate("/melody/story")}
@@ -35,7 +44,11 @@ const MelodyTutorial = () => {
       ></button>
 
       {/* Menu */}
-      <MelodyMenu onlyShow="story" />
+      <MelodyMenu
+        showText={showText}
+        setShowText={setShowText}
+        onlyShow="story"
+      />
     </div>
   );
 };

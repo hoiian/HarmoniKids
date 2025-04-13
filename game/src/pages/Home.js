@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { motion, useDragControls } from "framer-motion";
 
@@ -40,6 +41,14 @@ function Home() {
     setTimeout(() => setShowToast(false), 950);
   };
 
+  useEffect(() => {
+    const savedOrder = localStorage.getItem("home_order");
+    if (savedOrder) {
+      setCurrentOrder(JSON.parse(savedOrder));
+      localStorage.removeItem("home_order"); // 用完刪除避免污染
+    }
+  }, []);
+
   return (
     <div className="home-container container">
       <img
@@ -70,6 +79,10 @@ function Home() {
               rotateCounterClockwise();
             } else if (isBottom) {
               if (isMelodyAtBottom) {
+                localStorage.setItem(
+                  "home_order",
+                  JSON.stringify(currentOrder)
+                );
                 navigate("/melody/story");
               } else {
                 showToastMessage();
