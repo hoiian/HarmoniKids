@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import MelodyMenu from "./MelodyMenu"; // 引入 MelodyMenu
 
-const API_BASE_URL = "http://127.0.0.1:5000"; // Flask 伺服器地址
+// const API_BASE_URL = "https://directly-funny-cheetah.ngrok-free.app"; // Flask 伺服器地址
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const MelodyGame = () => {
   const navigate = useNavigate();
@@ -110,10 +111,10 @@ const MelodyGame = () => {
       if (data.status === "ok") {
         console.log("🎵 辨識成功！音符:", data.notes);
       } else {
-        console.error("⚠ 辨識失敗:", data.message);
+        logError("⚠ 辨識失敗:", data.message);
       }
     } catch (error) {
-      console.error("❌ 辨識時發生錯誤: ", error);
+      logError("辨識時發生錯誤", error);
     }
     setLoading(false);
   };
@@ -243,7 +244,7 @@ const MelodyGame = () => {
         console.error("重置失敗");
       }
     } catch (error) {
-      console.error("重置時發生錯誤: ", error);
+      logError("辨識時發生錯誤", error);
     }
   };
 
@@ -297,6 +298,14 @@ const MelodyGame = () => {
       playNextAudio();
     }
   }, [audioIndex, isPlaying]);
+
+  function logError(message, error = null) {
+    const logDiv = document.getElementById("log");
+    const time = new Date().toLocaleTimeString();
+    logDiv.innerHTML += `<div>[${time}] ❌ ${message} ${
+      error ? `<pre>${error}</pre>` : ""
+    }</div>`;
+  }
 
   return (
     <div className="melody-game-container container">
@@ -356,6 +365,7 @@ const MelodyGame = () => {
 
       {/* 隱藏的 Canvas（用於擷取影像） */}
       <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
+      <div id="log"></div>
     </div>
   );
 };

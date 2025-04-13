@@ -10,6 +10,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 # CORS(app)  # 允許所有請求
+# CORS(app, supports_credentials=True, resources={r"/api/*": {"origins": "*"}})
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
@@ -233,4 +234,5 @@ def reset():
     return jsonify({"status": "ok", "message": "已重置所有音符"})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)

@@ -593,3 +593,17 @@ body {
 .hidden {
   display: none;
 }
+
+#log {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  /* background: rgba(0, 0, 0, 0.7); */
+  color: #f77;
+  font-size: 14px;
+  padding: 8px;
+  z-index: 9999;
+  max-height: 200px;
+  overflow-y: auto;
+}
