@@ -17,6 +17,7 @@ const MelodyGame = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [showCamera, setShowCamera] = useState(false);
+  const [showLog, setShowLog] = useState(false); // 控制 log 顯示
 
   // **音符對應音檔**
   const mapping = {
@@ -308,6 +309,7 @@ const MelodyGame = () => {
   // }
   function logError(message, error) {
     const logDiv = document.getElementById("log");
+    if (!logDiv) return; // ✅ 防止 null 錯誤
     const time = new Date().toLocaleTimeString();
 
     // 若 error 是物件就印出 stack 或 message
@@ -363,7 +365,7 @@ const MelodyGame = () => {
           <div
             key={index}
             className={`note ${noteClass} ${
-              hiddenNotes.includes(`${noteClass}_${index}`) ? "hidden" : ""
+              hiddenNotes.includes(`${noteClass}_${index}`) ? "" : "hidden"
             }`}
           ></div>
         ))}
@@ -380,7 +382,18 @@ const MelodyGame = () => {
 
       {/* 隱藏的 Canvas（用於擷取影像） */}
       <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
-      <div id="log" style={{ opacity: showCamera ? 1 : 0 }}></div>
+
+      {/* 切換按鈕 */}
+      <button
+        className="toggleLogbtn"
+        onClick={() => setShowLog((prev) => !prev)}
+      >
+        {/* {showLog ? "隱藏 Log" : "顯示 Log"} */}
+      </button>
+
+      <div id="log" style={{ display: showLog ? "block" : "none" }}>
+        Log Content
+      </div>
     </div>
   );
 };

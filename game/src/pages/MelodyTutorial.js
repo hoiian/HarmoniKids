@@ -29,8 +29,9 @@ const MelodyTutorial = () => {
       {/* 只有 showText 為 true 時才顯示文本 */}
       {showText && (
         <div className="storyText text-shadow-outline">
-          皇后帶著士兵走進洞穴，發現裡面寬敞又明亮！魔法音符精靈 <br />
-          在牆上飛舞，隨著腳步跳動，還唱著旋律，講述音符果實的神秘傳說。
+          皇后帶著士兵走進洞穴，發現裡面寬敞又明亮！魔法音符
+          <br />
+          精靈在牆上飛舞，隨著腳步跳動，還唱著旋律.........
         </div>
       )}
 
