@@ -125,9 +125,9 @@ const MelodyGame = () => {
   // **🔹 播放辨識到的音符**
   const handlePlay = async () => {
     try {
-      setAudioIndex(0); // ✅ 一開始就重設 index
-      const res = await fetch(`${API_BASE_URL}/api/play`);
-      const data = await res.json();
+      // setAudioIndex(0); // ✅ 一開始就重設 index
+      // const res = await fetch(`${API_BASE_URL}/api/play`);
+      // const data = await res.json();
 
       // if (data.status === "ok" && data.notes.length > 0) {
       //   logError("🎵 開始播放音符:", data.notes);
@@ -155,7 +155,8 @@ const MelodyGame = () => {
           .map(([noteType, pitch]) => {
             const key = `${noteType}|${pitch}`;
             return mapping[key]
-              ? `${API_BASE_URL}/static/sounds/${mapping[key]}`
+              ? // ? `${API_BASE_URL}/static/sounds/${mapping[key]}`
+                `/sounds/${mapping[key]}`
               : null;
           })
           .filter(Boolean);
@@ -164,8 +165,9 @@ const MelodyGame = () => {
           logError("⚠ 沒有對應的音檔可播放");
           return;
         }
-
-        let currentPlayIndex = audioIndex; // **追蹤當前播放音符的索引**
+        let currentPlayIndex = 0;
+        setAudioIndex(0); // ✅ Reset index for tracking
+        // let currentPlayIndex = audioIndex; // **追蹤當前播放音符的索引**
         logError(`🔄 從索引 ${currentPlayIndex} 開始播放`);
 
         const playNextAudio = () => {
