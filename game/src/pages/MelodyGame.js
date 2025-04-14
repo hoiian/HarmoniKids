@@ -75,7 +75,7 @@ const MelodyGame = () => {
         }
       })
       .catch((error) => {
-        console.error("無法存取攝影機：", error);
+        logError("無法存取攝影機：", error);
       });
   }, []);
 
@@ -83,7 +83,7 @@ const MelodyGame = () => {
     setLoading(true);
     try {
       if (!videoRef.current || !canvasRef.current) {
-        console.error("未找到攝影機畫面或 Canvas");
+        logError("未找到攝影機畫面或 Canvas");
         setLoading(false);
         return;
       }
@@ -109,7 +109,7 @@ const MelodyGame = () => {
 
       const data = await res.json();
       if (data.status === "ok") {
-        console.log("🎵 辨識成功！音符:", data.notes);
+        logError("🎵 辨識成功！音符:", data.notes);
       } else {
         logError("⚠ 辨識失敗:", data.message);
       }
@@ -126,7 +126,7 @@ const MelodyGame = () => {
       const data = await res.json();
 
       if (data.status === "ok" && data.notes.length > 0) {
-        console.log("🎵 開始播放音符:", data.notes);
+        logError("🎵 開始播放音符:", data.notes);
 
         // **音符類型對應的數字**
         const noteClassMapping = {
@@ -141,7 +141,7 @@ const MelodyGame = () => {
           return `note_${noteNumber}_${pitch}`;
         });
 
-        console.log("🔹 需要匹配的音符:", matchedNotes);
+        logError("🔹 需要匹配的音符:", matchedNotes);
 
         // **音符對應音檔**
         const audioFiles = data.notes
@@ -154,12 +154,12 @@ const MelodyGame = () => {
           .filter(Boolean);
 
         if (audioFiles.length === 0) {
-          console.error("⚠ 沒有對應的音檔可播放");
+          logError("⚠ 沒有對應的音檔可播放");
           return;
         }
 
         let currentPlayIndex = audioIndex; // **追蹤當前播放音符的索引**
-        console.log(`🔄 從索引 ${currentPlayIndex} 開始播放`);
+        logError(`🔄 從索引 ${currentPlayIndex} 開始播放`);
 
         const playNextAudio = () => {
           if (currentPlayIndex < audioIndex + audioFiles.length) {
@@ -170,7 +170,7 @@ const MelodyGame = () => {
             audioElement
               .play()
               .then(() => {
-                console.log(
+                logError(
                   `▶ 播放中: ${audioFiles[currentPlayIndex - audioIndex]}`
                 );
 
@@ -184,7 +184,7 @@ const MelodyGame = () => {
                     ...prev,
                     `${noteClasses[currentPlayIndex]}_${currentPlayIndex}`,
                   ]);
-                  console.log(
+                  logError(
                     `✅ 隱藏: ${noteClasses[currentPlayIndex]} - 第 ${
                       currentPlayIndex + 1
                     } 個`
@@ -198,7 +198,7 @@ const MelodyGame = () => {
                 }
               })
               .catch((error) => {
-                console.error("⚠ 播放失敗:", error);
+                logError("⚠ 播放失敗:", error);
               });
 
             audioElement.onended = () => {
@@ -208,7 +208,7 @@ const MelodyGame = () => {
 
                 // **🔹 當 audioIndex 達到 10，等待 2 秒後跳轉到結果頁面**
                 if (newIndex === 10) {
-                  console.log("🎯 播放完成，2 秒後跳轉到結果頁面");
+                  logError("🎯 播放完成，2 秒後跳轉到結果頁面");
                   setTimeout(() => {
                     navigate("/melody/result");
                   }, 2000); // **延遲 2 秒**
@@ -219,17 +219,17 @@ const MelodyGame = () => {
               playNextAudio();
             };
           } else {
-            console.log("🎶 所有音符播放完畢！");
+            logError("🎶 所有音符播放完畢！");
           }
         };
 
         // **開始播放**
         playNextAudio();
       } else {
-        console.error("⚠ 沒有音符可播放");
+        logError("⚠ 沒有音符可播放");
       }
     } catch (error) {
-      console.error("❌ 播放音符時發生錯誤:", error);
+      logError("❌ 播放音符時發生錯誤:", error);
     }
   };
 
@@ -239,9 +239,9 @@ const MelodyGame = () => {
       const res = await fetch(`${API_BASE_URL}/api/reset`, { method: "POST" });
       const data = await res.json();
       if (data.status === "ok") {
-        console.log("重置成功");
+        logError("重置成功");
       } else {
-        console.error("重置失敗");
+        logError("重置失敗");
       }
     } catch (error) {
       logError("辨識時發生錯誤", error);
@@ -299,12 +299,27 @@ const MelodyGame = () => {
     }
   }, [audioIndex, isPlaying]);
 
-  function logError(message, error = null) {
+  // function logError(message, error = null) {
+  //   const logDiv = document.getElementById("log");
+  //   const time = new Date().toLocaleTimeString();
+  //   logDiv.innerHTML += `<div>[${time}]  ${message} ${
+  //     error ? `<pre>${error}</pre>` : ""
+  //   }</div>`;
+  // }
+  function logError(message, error) {
     const logDiv = document.getElementById("log");
     const time = new Date().toLocaleTimeString();
-    logDiv.innerHTML += `<div>[${time}] ❌ ${message} ${
-      error ? `<pre>${error}</pre>` : ""
-    }</div>`;
+
+    // 若 error 是物件就印出 stack 或 message
+    const errorMsg =
+      error instanceof Error
+        ? `<pre>${error.stack || error.message}</pre>`
+        : error
+        ? `<pre>${error}</pre>`
+        : "";
+
+    logDiv.innerHTML += `<div>[${time}] ${message} ${errorMsg}</div>`;
+    logDiv.scrollTop = logDiv.scrollHeight;
   }
 
   return (
@@ -365,7 +380,7 @@ const MelodyGame = () => {
 
       {/* 隱藏的 Canvas（用於擷取影像） */}
       <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
-      <div id="log"></div>
+      <div id="log" style={{ opacity: showCamera ? 1 : 0 }}></div>
     </div>
   );
 };

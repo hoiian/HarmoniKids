@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { motion, useDragControls } from "framer-motion";
@@ -6,6 +6,7 @@ import { motion, useDragControls } from "framer-motion";
 function Home() {
   const navigate = useNavigate();
   const dragControls = useDragControls();
+  const bgmRef = useRef(null); // 🔊 背景音樂參考
 
   const images = [
     "/images/home/thumbnail1_rhythm.png",
@@ -49,10 +50,44 @@ function Home() {
     }
   }, []);
 
+  useEffect(() => {
+    const tryPlay = () => {
+      if (bgmRef.current && bgmRef.current.paused) {
+        bgmRef.current.play();
+      }
+      // 一旦播放過，就移除事件
+      window.removeEventListener("touchstart", tryPlay);
+      window.removeEventListener("click", tryPlay);
+    };
+
+    window.addEventListener("touchstart", tryPlay);
+    window.addEventListener("click", tryPlay);
+
+    return () => {
+      window.removeEventListener("touchstart", tryPlay);
+      window.removeEventListener("click", tryPlay);
+    };
+  }, []);
+
+  // ✅ 自動播放 BGM
+  useEffect(() => {
+    const bgm = bgmRef.current;
+    if (bgm) {
+      bgm.volume = 0.5;
+      const playPromise = bgm.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => {
+          console.log("🔇 自動播放被阻止，需要用戶互動後播放", err);
+        });
+      }
+    }
+  }, []);
+
   return (
     <div className="home-container container">
+      <audio ref={bgmRef} src="/audio/bgm.mov" loop preload="auto" />
       <img
-        src="/images/home/logo.png"
+        src="/images/home/logo.svg"
         alt="HarmoniKids"
         className="header-logo"
       />

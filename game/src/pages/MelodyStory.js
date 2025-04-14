@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MelodyMenu from "./MelodyMenu";
 
@@ -7,7 +7,21 @@ function MelodyStory() {
   const [isOpen, setIsOpen] = useState(false);
   const [showText, setShowText] = useState(false); // 控制文本顯示
   const [lastVisited, setLastVisited] = useState(""); // 上次到訪時間
+  const videoRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
   const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (videoRef.current) {
+      videoRef.current.style.display = "block"; // 顯示影片
+      setPlaying(true);
+      videoRef.current.play();
+    }
+  };
+
+  const handleEnded = () => {
+    navigate("/melody/tutorial");
+  };
 
   useEffect(() => {
     // 取得上次到訪時間（從 localStorage）
@@ -31,17 +45,30 @@ function MelodyStory() {
       </div> */}
       {/* 返回首頁 */}
       <div className="BackBtn" onClick={() => navigate("/")}></div>
-      {/* 顯示 / 隱藏 storyText 的按鈕 */}
-      {/* <button
-        className="toggle-text-btn"
-        onClick={() => setShowText(!showText)}
-      ></button> */}
+
+      {/* <div className="story_next" onClick={handleClick}></div>
+
+      {playing && (
+        <video
+          ref={videoRef}
+          className="video-container"
+          src="/videos/melody_story_next_transition.mp4"
+          onEnded={handleEnded}
+          muted
+          playsInline
+          style={{
+            zIndex: 9999,
+            transition: "opacity 0.5s ease-in-out", // 淡入效果
+          }}
+        />
+      )} */}
 
       {/* 只有 showText 為 true 時才顯示文本 */}
       {showText && (
         <div className="storyText text-shadow-outline">
-          皇后帶著士兵走進洞穴，發現裡面寬敞又明亮！魔法音符精靈 <br />
-          在牆上飛舞，隨著腳步跳動，還唱著旋律，講述音符果實的神秘傳說。
+          皇后帶著士兵走進洞穴，發現裡面寬敞又明亮！魔法音符
+          <br />
+          精靈在牆上飛舞，隨著腳步跳動，還唱著旋律.........
         </div>
       )}
       <div
