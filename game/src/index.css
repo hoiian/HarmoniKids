@@ -332,16 +332,16 @@ body {
 }
 
 .story_next {
-  width: 272px;
-  height: 258px;
+  width: 300px;
+  height: 300px;
   background-size: contain;
   background-repeat: no-repeat;
   border: none;
   cursor: pointer;
   position: absolute;
   transform: translate(-50%, -50%);
-  top: calc(50% + 60px);
-  left: calc(50% + 10px);
+  top: calc(50% + 42px);
+  left: calc(50%);
 
   background-image: url("../public/images/melody/btn_story_next.gif");
 }
@@ -417,6 +417,12 @@ body {
   border: none;
   background: transparent;
   cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.menu-item:active {
+  filter: brightness(1.2);
+  transform: scale(0.95);
 }
 
 .BackBtn_black {
@@ -606,7 +612,7 @@ body {
 }
 
 .hidden {
-  display: none;
+  opacity: 0.4;
 }
 
 #log {

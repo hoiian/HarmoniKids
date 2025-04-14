@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+const playClickSound = () => {
+  const audio = new Audio("/audio/click.mov");
+  audio.play();
+};
+
 const MelodyMenu = ({
   handlePlay,
   handleRecord,
@@ -33,45 +38,38 @@ const MelodyMenu = ({
             <button
               className="menu-item"
               onClick={handlePlay}
+              onMouseDown={playClickSound}
               disabled={loading}
             >
               <img src="/images/melody/btn_menu_play.png" alt="Play" />
             </button>
 
-            <button className="menu-item">
+            <button className="menu-item" onMouseDown={playClickSound}>
               <img src="/images/melody/btn_menu_pause.png" alt="Pause" />
             </button>
 
             <button
               className="menu-item"
               onClick={handleRecord}
+              onMouseDown={playClickSound}
               disabled={loading}
             >
               <img src="/images/melody/btn_menu_record.png" alt="Record" />
             </button>
 
-            <button className="menu-item" onClick={handleReset}>
+            <button
+              className="menu-item"
+              onClick={handleReset}
+              onMouseDown={playClickSound}
+            >
               <img src="/images/melody/btn_menu_restart.png" alt="Reset" />
             </button>
 
-            {/* 控制文本顯示的按鈕 */}
-            {/* <button
-              className="menu-item"
-              onClick={() => setShowText(!showText)}
-            >
-              <img src="/images/melody/btn_menu_story.png" alt="Story" />
-            </button>
-
-            <button
-              className="menu-item"
-              onClick={() => setShowCamera((prev) => !prev)}
-            >
-              <img src="/images/melody/btn_menu_camera.png" alt="Camera" />
-            </button> */}
             {onlyShow === "camera" && (
               <button
                 className="menu-item"
                 onClick={() => setShowCamera((prev) => !prev)}
+                onMouseDown={playClickSound}
               >
                 <img src="/images/melody/btn_menu_camera.png" alt="Camera" />
               </button>
@@ -81,6 +79,7 @@ const MelodyMenu = ({
               <button
                 className="menu-item"
                 onClick={() => setShowText(!showText)}
+                onMouseDown={playClickSound}
               >
                 <img src="/images/melody/btn_menu_story.png" alt="Story" />
               </button>
