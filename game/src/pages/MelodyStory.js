@@ -11,6 +11,15 @@ function MelodyStory() {
   const [playing, setPlaying] = useState(false);
   const navigate = useNavigate();
   const bgmRef = useRef(null);
+  const storyAudioRef = useRef(null);
+
+  const playStoryAudio = () => {
+    if (storyAudioRef.current) {
+      storyAudioRef.current
+        .play()
+        .catch((err) => console.warn("🔇 播放故事音效失敗", err));
+    }
+  };
 
   const handleClick = () => {
     const bgm = bgmRef.current;
@@ -106,6 +115,12 @@ function MelodyStory() {
         </div>
       )}
 
+      <audio
+        ref={storyAudioRef}
+        src="/audio/narrator_melody_story.MP3"
+        preload="auto"
+      />
+
       {/* 上次到訪的 badge */}
       <div className="last-visit-badge">
         <div className="badge-icon"></div>
@@ -118,6 +133,7 @@ function MelodyStory() {
         showText={showText}
         setShowText={setShowText}
         onlyShow="story"
+        playStoryAudio={playStoryAudio}
       />
     </div>
   );

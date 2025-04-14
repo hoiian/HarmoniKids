@@ -18,6 +18,7 @@ const MelodyGame = () => {
   const canvasRef = useRef(null);
   const [showCamera, setShowCamera] = useState(false);
   const [showLog, setShowLog] = useState(false); // 控制 log 顯示
+  const [capturedNotes, setCapturedNotes] = useState([]);
 
   // **音符對應音檔**
   const mapping = {
@@ -111,6 +112,7 @@ const MelodyGame = () => {
       const data = await res.json();
       if (data.status === "ok") {
         logError("🎵 辨識成功！音符:", data.notes);
+        setCapturedNotes((prev) => [...prev, ...data.notes]); // 🔹 累加音符
       } else {
         logError("⚠ 辨識失敗:", data.message);
       }
@@ -123,11 +125,15 @@ const MelodyGame = () => {
   // **🔹 播放辨識到的音符**
   const handlePlay = async () => {
     try {
+      setAudioIndex(0); // ✅ 一開始就重設 index
       const res = await fetch(`${API_BASE_URL}/api/play`);
       const data = await res.json();
 
-      if (data.status === "ok" && data.notes.length > 0) {
-        logError("🎵 開始播放音符:", data.notes);
+      // if (data.status === "ok" && data.notes.length > 0) {
+      //   logError("🎵 開始播放音符:", data.notes);
+      if (capturedNotes.length > 0) {
+        logError("🎵 開始播放音符:", capturedNotes);
+        const data = { notes: capturedNotes };
 
         // **音符類型對應的數字**
         const noteClassMapping = {
@@ -241,6 +247,7 @@ const MelodyGame = () => {
       const data = await res.json();
       if (data.status === "ok") {
         logError("重置成功");
+        setCapturedNotes([]); // ✅ 清空紀錄
       } else {
         logError("重置失敗");
       }

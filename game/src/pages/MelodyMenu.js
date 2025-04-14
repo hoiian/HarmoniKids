@@ -16,6 +16,7 @@ const MelodyMenu = ({
   showCamera,
   setShowCamera,
   onlyShow,
+  playStoryAudio,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -78,7 +79,12 @@ const MelodyMenu = ({
             {onlyShow === "story" && (
               <button
                 className="menu-item"
-                onClick={() => setShowText(!showText)}
+                onClick={() => {
+                  setShowText(!showText);
+                  if (!showText) {
+                    playStoryAudio?.(); // ✅ 只在打開時播放
+                  }
+                }}
                 onMouseDown={playClickSound}
               >
                 <img src="/images/melody/btn_menu_story.png" alt="Story" />
