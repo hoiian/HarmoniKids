@@ -91,6 +91,8 @@ function MelodyStory() {
           playsInline
           style={{
             zIndex: 9999,
+            height: "auto",
+            objectFit: "cover",
           }}
         />
       )}
