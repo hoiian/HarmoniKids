@@ -335,6 +335,7 @@ const MelodyGame = () => {
 
   return (
     <div className="melody-game-container container">
+      <div className="melody-cover"></div>
       <div className="video-container">
         <video autoPlay loop muted playsInline className="background-video">
           <source src="/videos/melody_game_bg.mp4" type="video/mp4" />
@@ -366,6 +367,10 @@ const MelodyGame = () => {
       <button
         className="arrow left"
         onClick={() => navigate("/melody/tutorial")}
+      ></button>
+      <button
+        className="arrow right"
+        onClick={() => navigate("/melody/story5")}
       ></button>
 
       {/* Notes UI */}

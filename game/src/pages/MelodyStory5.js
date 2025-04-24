@@ -29,7 +29,10 @@ const MelodyTutorial = () => {
   }, []);
 
   return (
-    <div className="melody-tutorial-container container">
+    <div
+      className="container"
+      style={{ backgroundImage: `url("/images/melody/bg_story5.gif")` }}
+    >
       <div className="melody-cover"></div>
       <audio
         ref={bgmRef}
@@ -39,30 +42,24 @@ const MelodyTutorial = () => {
       />
       {/* <h1>Melody Tutorial Page</h1> */}
       <div className="BackBtn" onClick={() => navigate("/")}></div>
-      <div className="video-container">
-        <video autoPlay playsInline>
-          <source src="/videos/melody_tutorial2.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
 
       {/* 只有 showText 為 true 時才顯示文本 */}
       {showText && (
-        <div className="storyText text-shadow-outline">
-          學會Ta的各種音高，開心地歌唱起來，突然，有個士兵
+        <div className="storyText text-shadow-outline" style={{ top: "223px" }}>
+          從此，噪音國再也沒有刺耳的聲響，每個角落
           <br />
-          不小心多唱了一拍，沒想到發現了另一個祕密。
+          都響著和平又快樂的旋律......
         </div>
       )}
 
       <button
         className="arrow left"
-        onClick={() => navigate("/melody/tutorial")}
+        onClick={() => navigate("/melody/game")}
       ></button>
-      <button
+      {/* <button
         className="arrow right"
-        onClick={() => navigate("/melody/story2")}
-      ></button>
+        onClick={() => navigate("/melody/story4")}
+      ></button> */}
 
       {/* Menu */}
       <MelodyMenu

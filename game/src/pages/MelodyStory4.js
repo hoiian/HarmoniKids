@@ -41,7 +41,7 @@ const MelodyTutorial = () => {
       <div className="BackBtn" onClick={() => navigate("/")}></div>
       <div className="video-container">
         <video autoPlay playsInline>
-          <source src="/videos/melody_tutorial2.mp4" type="video/mp4" />
+          <source src="/videos/melody_story4.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
@@ -49,19 +49,19 @@ const MelodyTutorial = () => {
       {/* 只有 showText 為 true 時才顯示文本 */}
       {showText && (
         <div className="storyText text-shadow-outline">
-          學會Ta的各種音高，開心地歌唱起來，突然，有個士兵
+          士兵們合力演奏，
           <br />
-          不小心多唱了一拍，沒想到發現了另一個祕密。
+          一起邊走邊數：「一、二、三、四！」
         </div>
       )}
 
       <button
         className="arrow left"
-        onClick={() => navigate("/melody/tutorial")}
+        onClick={() => navigate("/melody/story3")}
       ></button>
       <button
         className="arrow right"
-        onClick={() => navigate("/melody/story2")}
+        onClick={() => navigate("/melody/game")}
       ></button>
 
       {/* Menu */}

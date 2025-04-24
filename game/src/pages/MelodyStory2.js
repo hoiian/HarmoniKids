@@ -33,6 +33,7 @@ const MelodyTutorial = () => {
       className="container"
       style={{ backgroundImage: `url("/images/melody/bg_story2.gif")` }}
     >
+      <div className="melody-cover"></div>
       <audio
         ref={bgmRef}
         src="/audio/bgm_melody_tutorial_new.mov"
@@ -53,11 +54,11 @@ const MelodyTutorial = () => {
 
       <button
         className="arrow left"
-        onClick={() => navigate("/melody/tutorial")}
+        onClick={() => navigate("/melody/tutorial2")}
       ></button>
       <button
         className="arrow right"
-        onClick={() => navigate("/melody/game")}
+        onClick={() => navigate("/melody/tutorial3")}
       ></button>
 
       {/* Menu */}

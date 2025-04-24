@@ -70,6 +70,7 @@ function MelodyStory() {
 
   return (
     <div className="melody-story-container container">
+      <div className="melody-cover"></div>
       <audio
         ref={bgmRef}
         src="/audio/bgm_melody_story.mov"
