@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import MelodyMenu from "./MelodyMenu"; // 引入 MelodyMenu
 
 const MelodyTutorial = () => {
   const navigate = useNavigate();
   const [showText, setShowText] = useState(false); // 控制文本顯示
+  const bgmRef = useRef(null);
+
   document.addEventListener("DOMContentLoaded", () => {
     const video = document.getElementById("bgVideo");
 
@@ -15,8 +17,25 @@ const MelodyTutorial = () => {
     }, 1000);
   });
 
+  // play bgm
+  useEffect(() => {
+    const bgm = bgmRef.current;
+    if (bgm) {
+      bgm.volume = 0.6;
+      bgm.play().catch((err) => {
+        console.warn("🔇 自動播放失敗：需要用戶互動", err);
+      });
+    }
+  }, []);
+
   return (
     <div className="melody-tutorial-container container">
+      <audio
+        ref={bgmRef}
+        src="/audio/bgm_melody_tutorial_new.mov"
+        loop
+        preload="auto"
+      />
       {/* <h1>Melody Tutorial Page</h1> */}
       <div className="BackBtn" onClick={() => navigate("/")}></div>
       <div className="video-container">
@@ -41,7 +60,7 @@ const MelodyTutorial = () => {
       ></button>
       <button
         className="arrow right"
-        onClick={() => navigate("/melody/game")}
+        onClick={() => navigate("/melody/tutorial2")}
       ></button>
 
       {/* Menu */}

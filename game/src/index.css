@@ -34,10 +34,48 @@
   font-weight: 500;
 }
 
+/* 注音體 */
+
+@font-face {
+  font-family: "BpmfGenSenRounded";
+  src: url("../public/font/BpmfGenSenRounded-R.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "BpmfGenSenRounded";
+  src: url("../public/font/BpmfGenSenRounded-B.ttf") format("truetype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "BpmfGenSenRounded";
+  src: url("../public/font/BpmfGenSenRounded-EL.ttf") format("truetype");
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "BpmfGenSenRounded";
+  src: url("../public/font/BpmfGenSenRounded-H.ttf") format("truetype");
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "BpmfGenSenRounded";
+  src: url("../public/font/BpmfGenSenRounded-L.ttf") format("truetype");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "BpmfGenSenRounded";
+  src: url("../public/font/BpmfGenSenRounded-M.ttf") format("truetype");
+  font-weight: 500;
+}
+
 body {
   padding: 0;
   margin: 0;
-  font-family: "GenSenRounded", sans-serif;
+  font-family: "BpmfGenSenRounded", sans-serif;
   overflow: hidden;
 }
 
