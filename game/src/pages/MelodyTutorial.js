@@ -40,7 +40,7 @@ const MelodyTutorial = () => {
       {/* <h1>Melody Tutorial Page</h1> */}
       <div className="BackBtn" onClick={() => navigate("/")}></div>
       <div className="video-container">
-        <video autoPlay playsInline>
+        <video autoPlay playsInline loop>
           <source src="/videos/melody_tutorial.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
@@ -49,9 +49,9 @@ const MelodyTutorial = () => {
       {/* 只有 showText 為 true 時才顯示文本 */}
       {showText && (
         <div className="storyText text-shadow-outline">
-          皇后帶著士兵走進洞穴，發現裡面寬敞又明亮！魔法音符
+          魔法音符精靈們一邊扭動可愛的小身體，
           <br />
-          精靈在牆上飛舞，隨著腳步跳動，還唱著旋律.........
+          一邊唱出忽高忽低的聲音。
         </div>
       )}
 

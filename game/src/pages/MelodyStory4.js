@@ -47,13 +47,13 @@ const MelodyTutorial = () => {
       </div>
 
       {/* 只有 showText 為 true 時才顯示文本 */}
-      {showText && (
+      {/* {showText && (
         <div className="storyText text-shadow-outline">
           士兵們合力演奏，
           <br />
           一起邊走邊數：「一、二、三、四！」
         </div>
-      )}
+      )} */}
 
       <button
         className="arrow left"
