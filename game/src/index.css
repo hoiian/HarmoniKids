@@ -382,18 +382,31 @@ body {
 }
 
 .story_next {
-  width: 300px;
-  height: 300px;
+  width: 350px;
+  height: 348px;
   background-size: contain;
   background-repeat: no-repeat;
   border: none;
   cursor: pointer;
   position: absolute;
   transform: translate(-50%, -50%);
-  top: calc(50% + 42px);
-  left: calc(50%);
+  top: calc(50% + 50px);
+  left: calc(50% - 4px);
 
   background-image: url("../public/images/melody/btn_story_next.gif");
+}
+
+.clickme {
+  width: 272px;
+  height: 149px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: calc(50% - 17px);
+  left: calc(50% + 20px);
 }
 /* ------旋律-教學------- */
 

@@ -89,6 +89,11 @@ function MelodyStory() {
         className="story_next"
         onClick={() => navigate("/melody/tutorial")}
       ></div> */}
+      <img
+        src="/images/melody/story1_indicator.gif"
+        className="clickme"
+        alt="performance"
+      />
       <div className="story_next" onClick={handleClick}></div>
 
       {playing && (
