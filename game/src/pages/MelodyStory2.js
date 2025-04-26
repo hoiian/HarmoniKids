@@ -33,7 +33,7 @@ const MelodyTutorial = () => {
       className="container"
       style={{ backgroundImage: `url("/images/melody/bg_story2.gif")` }}
     >
-      <div className="melody-cover"></div>
+      <div className="sticker"></div>
       <audio
         ref={bgmRef}
         src="/audio/bgm_melody_tutorial_new.mov"

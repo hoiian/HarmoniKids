@@ -335,7 +335,7 @@ const MelodyGame = () => {
 
   return (
     <div className="melody-game-container container">
-      <div className="melody-cover"></div>
+      <div className="sticker"></div>
       <div className="video-container">
         <video autoPlay loop muted playsInline className="background-video">
           <source src="/videos/melody_game_bg.mp4" type="video/mp4" />

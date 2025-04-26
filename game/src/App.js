@@ -12,6 +12,8 @@ import MelodyTutorial2 from "./pages/MelodyTutorial2";
 import MelodyTutorial3 from "./pages/MelodyTutorial3";
 import MelodyGame from "./pages/MelodyGame";
 import MelodyGameResult from "./pages/MelodyGameResult";
+import Rhythm from "./pages/Rhythm";
+import Pitch from "./pages/Pitch";
 import "./index.css";
 
 function App() {
@@ -30,6 +32,8 @@ function App() {
         <Route path="/melody/tutorial3" element={<MelodyTutorial3 />} />
         <Route path="/melody/game" element={<MelodyGame />} />
         <Route path="/melody/result" element={<MelodyGameResult />} />
+        <Route path="/rhythm" element={<Rhythm />} />
+        <Route path="/pitch" element={<Pitch />} />
       </Routes>
     </Router>
   );

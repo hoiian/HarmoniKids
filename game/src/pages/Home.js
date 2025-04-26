@@ -28,7 +28,7 @@ function Home() {
   const bottomIndex = 0;
   const isMelodyAtBottom =
     images[currentOrder[bottomIndex]] === "/images/home/thumbnail3_melody.png";
-
+  const bottomImg = images[currentOrder[bottomIndex]];
   const rotateClockwise = () => {
     setCurrentOrder((prev) => [prev[3], prev[0], prev[1], prev[2]]);
   };
@@ -90,13 +90,30 @@ function Home() {
             } else if (isRight) {
               rotateCounterClockwise();
             } else if (isBottom) {
-              if (isMelodyAtBottom) {
+              const bottomImg = images[currentOrder[bottomIndex]];
+              if (bottomImg === "/images/home/thumbnail3_melody.png") {
+                // melody
                 localStorage.setItem(
                   "home_order",
                   JSON.stringify(currentOrder)
                 );
                 navigate("/melody/story");
+              } else if (bottomImg === "/images/home/thumbnail2_pitch.png") {
+                // pitch
+                localStorage.setItem(
+                  "home_order",
+                  JSON.stringify(currentOrder)
+                );
+                navigate("/pitch");
+              } else if (bottomImg === "/images/home/thumbnail1_rhythm.png") {
+                // rhythm
+                localStorage.setItem(
+                  "home_order",
+                  JSON.stringify(currentOrder)
+                );
+                navigate("/rhythm");
               } else {
+                // 其他情况都弹 Toast
                 showToastMessage();
               }
             }

@@ -312,15 +312,26 @@ body {
   right: 30px;
 }
 
-.melody-cover {
+.sticker {
   position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   top: 24px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
   width: 246px;
   height: 60px;
-  background-image: url("../public/images/melody/cover.png");
+  background-image: url("../public/images/melody/melody_sticker.png");
+}
+
+.sticker.rhythm {
+  background-image: url("../public/images/rhythm_sticker.png");
+}
+
+.sticker.pitch {
+  background-image: url("../public/images/pitch_sticker.png");
 }
 
 /* ------旋律-故事------- */

@@ -30,7 +30,7 @@ const MelodyTutorial = () => {
 
   return (
     <div className="melody-tutorial-container container">
-      <div className="melody-cover"></div>
+      <div className="sticker"></div>
       <audio
         ref={bgmRef}
         src="/audio/bgm_melody_tutorial_new.mov"
