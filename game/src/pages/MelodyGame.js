@@ -366,7 +366,7 @@ const MelodyGame = () => {
 
       <button
         className="arrow left"
-        onClick={() => navigate("/melody/story4")}
+        onClick={() => navigate("/melody/story3")}
       ></button>
       <button
         className="arrow right"

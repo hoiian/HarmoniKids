@@ -6,6 +6,15 @@ const MelodyTutorial = () => {
   const navigate = useNavigate();
   const [showText, setShowText] = useState(false); // 控制文本顯示
   const bgmRef = useRef(null);
+  const storyAudioRef = useRef(null);
+
+  const playStoryAudio = () => {
+    if (storyAudioRef.current) {
+      storyAudioRef.current
+        .play()
+        .catch((err) => console.warn("🔇 播放故事音效失敗", err));
+    }
+  };
 
   document.addEventListener("DOMContentLoaded", () => {
     const video = document.getElementById("bgVideo");
@@ -56,6 +65,11 @@ const MelodyTutorial = () => {
           都響著和平又快樂的旋律......
         </div>
       )} */}
+      <audio
+        ref={storyAudioRef}
+        src="/audio/narrator_melody_story5.MP3"
+        preload="auto"
+      />
 
       <button
         className="arrow left"
@@ -71,6 +85,7 @@ const MelodyTutorial = () => {
         showText={showText}
         setShowText={setShowText}
         onlyShow="story"
+        playStoryAudio={playStoryAudio}
       />
     </div>
   );
