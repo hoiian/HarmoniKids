@@ -314,11 +314,11 @@ body {
 
 .melody-cover {
   position: absolute;
-  top: 20px;
+  top: 24px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
-  width: 231px;
+  width: 246px;
   height: 60px;
   background-image: url("../public/images/melody/cover.png");
 }

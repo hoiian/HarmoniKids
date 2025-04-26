@@ -31,7 +31,7 @@ const MelodyTutorial = () => {
   return (
     <div
       className="container"
-      style={{ backgroundImage: `url("/images/melody/bg_story5.gif")` }}
+      // style={{ backgroundImage: `url("/images/melody/bg_story5.gif")` }}
     >
       <div className="melody-cover"></div>
       <audio
@@ -42,15 +42,20 @@ const MelodyTutorial = () => {
       />
       {/* <h1>Melody Tutorial Page</h1> */}
       <div className="BackBtn" onClick={() => navigate("/")}></div>
-
+      <div className="video-container">
+        <video autoPlay playsInline>
+          <source src="/videos/melody_story5.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
       {/* 只有 showText 為 true 時才顯示文本 */}
-      {showText && (
+      {/* {showText && (
         <div className="storyText text-shadow-outline" style={{ top: "223px" }}>
           從此，噪音國再也沒有刺耳的聲響，每個角落
           <br />
           都響著和平又快樂的旋律......
         </div>
-      )}
+      )} */}
 
       <button
         className="arrow left"

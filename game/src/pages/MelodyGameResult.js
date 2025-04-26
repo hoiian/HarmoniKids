@@ -27,10 +27,7 @@ const MelodyGameResult = () => {
         </div>
       </div>
 
-      <div
-        className="result-next"
-        onClick={() => navigate("/melody/story")}
-      ></div>
+      <div className="result-next" onClick={() => navigate("/")}></div>
     </div>
   );
 };
