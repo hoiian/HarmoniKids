@@ -58,13 +58,13 @@ const MelodyTutorial = () => {
         </video>
       </div>
       {/* 只有 showText 為 true 時才顯示文本 */}
-      {/* {showText && (
+      {showText && (
         <div className="storyText text-shadow-outline" style={{ top: "223px" }}>
           從此，噪音國再也沒有刺耳的聲響，每個角落
           <br />
           都響著和平又快樂的旋律......
         </div>
-      )} */}
+      )}
       <audio
         ref={storyAudioRef}
         src="/audio/narrator_melody_story5.MP3"
