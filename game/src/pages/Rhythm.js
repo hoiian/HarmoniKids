@@ -33,7 +33,7 @@ const Rhythm = () => {
       <div className="sticker rhythm"></div>
       <audio
         ref={bgmRef}
-        src="/audio/bgm_melody_tutorial_new.mov"
+        src="/audio/bgm_melody_tutorial_new.mp3"
         loop
         preload="auto"
       />
