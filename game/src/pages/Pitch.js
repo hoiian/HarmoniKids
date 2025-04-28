@@ -31,12 +31,12 @@ const MelodyTutorial = () => {
   return (
     <div className="melody-tutorial-container container">
       <div className="sticker pitch"></div>
-      {/* <audio
+      <audio
         ref={bgmRef}
         src="/audio/bgm_melody_tutorial_new.mov"
         loop
         preload="auto"
-      /> */}
+      />
       {/* <h1>Melody Tutorial Page</h1> */}
       <div className="BackBtn" onClick={() => navigate("/")}></div>
       <div className="video-container">
