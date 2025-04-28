@@ -40,7 +40,18 @@ const Rhythm = () => {
       {/* <h1>Melody Tutorial Page</h1> */}
       <div className="BackBtn" onClick={() => navigate("/")}></div>
       <div className="video-container">
-        <video autoPlay playsInline onEnded={() => navigate("/melody/result")}>
+        <video
+          autoPlay
+          playsInline
+          onEnded={() => {
+            if (bgmRef.current) {
+              bgmRef.current.play().catch((err) => {
+                console.warn("🔇 重新播放 BGM 失敗", err);
+              });
+            }
+            navigate("/melody/result");
+          }}
+        >
           <source src="/videos/rhythm.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>

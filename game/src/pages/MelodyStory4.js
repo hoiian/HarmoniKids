@@ -40,7 +40,18 @@ const MelodyTutorial = () => {
       {/* <h1>Melody Tutorial Page</h1> */}
       <div className="BackBtn" onClick={() => navigate("/")}></div>
       <div className="video-container">
-        <video autoPlay playsInline onEnded={() => navigate("/melody/game")}>
+        <video
+          autoPlay
+          playsInline
+          onEnded={() => {
+            if (bgmRef.current) {
+              bgmRef.current.play().catch((err) => {
+                console.warn("🔇 重新播放 BGM 失敗", err);
+              });
+            }
+            navigate("/melody/result");
+          }}
+        >
           <source src="/videos/melody_story4.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>

@@ -101,7 +101,14 @@ function MelodyStory() {
           ref={videoRef}
           className="video-container"
           src="/videos/melody_story_next_transition.mp4"
-          onEnded={handleEnded}
+          onEnded={() => {
+            if (bgmRef.current) {
+              bgmRef.current.play().catch((err) => {
+                console.warn("🔇 重新播放 BGM 失敗", err);
+              });
+            }
+            handleEnded(); // 你原本的 navigate 之類的
+          }}
           autoPlay
           // muted
           playsInline
