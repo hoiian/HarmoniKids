@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import MelodyMenu from "./MelodyMenu"; // 引入 MelodyMenu
 
-const API_BASE_URL = "https://directly-funny-cheetah.ngrok-free.app"; // Flask 伺服器地址
+// const API_BASE_URL = "https://directly-funny-cheetah.ngrok-free.app"; // Flask 伺服器地址
+const API_BASE_URL = "https://delicate-glorious-koi.ngrok-free.app";
 // const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const MelodyGame = () => {
